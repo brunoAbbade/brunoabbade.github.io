@@ -123,11 +123,16 @@
       background: rgba(255, 196, 70, 0.15);
       color: #ffd370;
     }
+    .store-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 4px;
+    }
     .store-link {
       display: inline-flex;
       align-items: center;
       gap: 6px;
-      margin-top: 4px;
       padding: 8px 16px;
       border-radius: 10px;
       background: var(--accent);
@@ -135,6 +140,9 @@
       text-decoration: none;
       font-size: 13px;
       font-weight: 600;
+    }
+    .store-link-android {
+      background: #34a853;
     }
     .store-link:hover {
       opacity: 0.9;
@@ -181,11 +189,16 @@
         <li>Português, inglês e espanhol</li>
         <li>Funciona sem internet após o primeiro uso</li>
       </ul>
-      <span class="badge badge-live">DISPONÍVEL NA APP STORE</span>
+      <span class="badge badge-live">DISPONÍVEL NA APP STORE E PLAY STORE</span>
       <br />
-      <a class="store-link" href="https://apps.apple.com/br/app/renascer-praise-cifras/id6780117518">
-        Baixar na App Store →
-      </a>
+      <div class="store-links">
+        <a class="store-link" href="https://apps.apple.com/br/app/renascer-praise-cifras/id6780117518">
+          Baixar na App Store →
+        </a>
+        <a class="store-link store-link-android" href="https://play.google.com/store/apps/details?id=com.boliveira.cifraspraise&hl=pt_BR">
+          Baixar no Google Play →
+        </a>
+      </div>
     </section>
 
     <section class="app-card">
