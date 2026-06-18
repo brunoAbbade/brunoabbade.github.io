@@ -2,11 +2,236 @@
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8" />
-  <title>Bruno Abbade</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Bruno Abbade — Apps</title>
+  <style>
+    :root {
+      --bg: #0a0e2e;
+      --bg-card: rgba(255, 255, 255, 0.04);
+      --border: rgba(255, 255, 255, 0.08);
+      --text: #f2f3f8;
+      --text-secondary: #aab0c8;
+      --accent: #6c7bff;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      background: linear-gradient(180deg, #0a0e2e 0%, #050714 100%);
+      color: var(--text);
+      line-height: 1.5;
+    }
+    header {
+      max-width: 760px;
+      margin: 0 auto;
+      padding: 56px 24px 24px;
+      text-align: center;
+    }
+    header h1 {
+      font-size: 28px;
+      margin: 0 0 8px;
+    }
+    header p {
+      color: var(--text-secondary);
+      margin: 0;
+      font-size: 15px;
+    }
+    main {
+      max-width: 760px;
+      margin: 0 auto;
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+    .app-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 24px;
+    }
+    .app-card-header {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin-bottom: 12px;
+    }
+    .app-icon {
+      width: 48px;
+      height: 48px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 24px;
+      flex-shrink: 0;
+      overflow: hidden;
+    }
+    .app-icon img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    .app-name {
+      font-size: 18px;
+      font-weight: 600;
+      margin: 0;
+    }
+    .app-tagline {
+      color: var(--text-secondary);
+      font-size: 13px;
+      margin: 2px 0 0;
+    }
+    .app-description {
+      font-size: 14px;
+      color: var(--text-secondary);
+      margin: 0 0 14px;
+    }
+    .features {
+      list-style: none;
+      margin: 0 0 16px;
+      padding: 0;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 8px;
+    }
+    .features li {
+      font-size: 13px;
+      color: var(--text);
+      display: flex;
+      align-items: baseline;
+      gap: 6px;
+    }
+    .features li::before {
+      content: "•";
+      color: var(--accent);
+      font-weight: bold;
+    }
+    .badge {
+      display: inline-block;
+      font-size: 11px;
+      font-weight: 600;
+      padding: 4px 10px;
+      border-radius: 999px;
+      letter-spacing: 0.02em;
+    }
+    .badge-live {
+      background: rgba(70, 200, 120, 0.15);
+      color: #5fd98a;
+    }
+    .badge-dev {
+      background: rgba(255, 196, 70, 0.15);
+      color: #ffd370;
+    }
+    .store-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      margin-top: 4px;
+      padding: 8px 16px;
+      border-radius: 10px;
+      background: var(--accent);
+      color: white;
+      text-decoration: none;
+      font-size: 13px;
+      font-weight: 600;
+    }
+    .store-link:hover {
+      opacity: 0.9;
+    }
+    footer {
+      max-width: 760px;
+      margin: 0 auto;
+      padding: 24px 24px 56px;
+      text-align: center;
+      color: var(--text-secondary);
+      font-size: 12px;
+    }
+    footer a {
+      color: var(--text-secondary);
+    }
+  </style>
 </head>
 <body>
-  <h1>Bruno Abbade</h1>
-  <p>Desenvolvedor do app <a href="https://apps.apple.com/br/app/renascer-praise-cifras/id6780117518">Renascer Praise Cifras</a>.</p>
+  <header>
+    <h1>Bruno Abbade</h1>
+    <p>Apps e jogos para iOS e Android</p>
+  </header>
+
+  <main>
+    <section class="app-card">
+      <div class="app-card-header">
+        <div class="app-icon"><img src="icons/cifras-praise.png" alt="Ícone Renascer Praise Cifras" /></div>
+        <div>
+          <p class="app-name">Renascer Praise Cifras</p>
+          <p class="app-tagline">Cifras para louvor e adoração</p>
+        </div>
+      </div>
+      <p class="app-description">
+        App de cifras musicais com mais de 1.000 hinos e louvores, pensado para
+        músicos e grupos de adoração. Funciona offline depois da primeira sincronização.
+      </p>
+      <ul class="features">
+        <li>Mais de 1.000 cifras com tom e acordes</li>
+        <li>Transposição de tom em tempo real</li>
+        <li>Repertório personalizado com reordenação</li>
+        <li>Busca instantânea por título</li>
+        <li>Modo claro/escuro e cores de fundo</li>
+        <li>Auto-scroll com velocidade ajustável</li>
+        <li>Português, inglês e espanhol</li>
+        <li>Funciona sem internet após o primeiro uso</li>
+      </ul>
+      <span class="badge badge-live">DISPONÍVEL NA APP STORE</span>
+      <br />
+      <a class="store-link" href="https://apps.apple.com/br/app/renascer-praise-cifras/id6780117518">
+        Baixar na App Store →
+      </a>
+    </section>
+
+    <section class="app-card">
+      <div class="app-card-header">
+        <div class="app-icon"><img src="icons/merge-rise.png" alt="Ícone Merge Rise" /></div>
+        <div>
+          <p class="app-name">Merge Rise</p>
+          <p class="app-tagline">Puzzle de fusão com progressão por níveis</p>
+        </div>
+      </div>
+      <p class="app-description">
+        Jogo de puzzle estilo merge/2048 reinventado, com objetivos por nível
+        e histórico de partidas para acompanhar sua evolução.
+      </p>
+      <ul class="features">
+        <li>Mecânica de fusão clássica reinventada</li>
+        <li>Progressão por níveis com objetivos</li>
+        <li>Histórico de partidas</li>
+        <li>Efeitos sonoros e configurações</li>
+      </ul>
+      <span class="badge badge-dev">EM DESENVOLVIMENTO</span>
+    </section>
+
+    <section class="app-card">
+      <div class="app-card-header">
+        <div class="app-icon" style="background: linear-gradient(135deg, #7a4fc9, #2e1c4d);">🧩</div>
+        <div>
+          <p class="app-name">Snap Puzzle</p>
+          <p class="app-tagline">Quebra-cabeça com suas próprias fotos</p>
+        </div>
+      </div>
+      <p class="app-description">
+        Transforme qualquer foto da sua galeria em um quebra-cabeça e monte
+        no seu próprio ritmo, com vários níveis de dificuldade.
+      </p>
+      <ul class="features">
+        <li>Use qualquer foto como puzzle</li>
+        <li>Vários níveis de dificuldade</li>
+        <li>Progresso salvo automaticamente</li>
+      </ul>
+      <span class="badge badge-dev">EM DESENVOLVIMENTO</span>
+    </section>
+  </main>
+
+  <footer>
+    <p>© 2026 Bruno Abbade</p>
+  </footer>
 </body>
 </html>
