@@ -240,7 +240,15 @@
       return card;
     }
 
+    function applyAccentFromQuery() {
+      const accent = new URLSearchParams(window.location.search).get('accent');
+      if (accent && /^[0-9a-fA-F]{6}$/.test(accent)) {
+        document.documentElement.style.setProperty('--accent', `#${accent}`);
+      }
+    }
+
     function render() {
+      applyAccentFromQuery();
       const currentId = new URLSearchParams(window.location.search).get('from');
       const others = APPS.filter((app) => app.id !== currentId);
       const list = document.getElementById('app-list');
