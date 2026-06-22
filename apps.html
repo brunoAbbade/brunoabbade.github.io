@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Conheça outros apps</title>
+  <style>
+    :root {
+      --bg: #0a0e2e;
+      --bg-card: rgba(255, 255, 255, 0.04);
+      --border: rgba(255, 255, 255, 0.08);
+      --text: #f2f3f8;
+      --text-secondary: #aab0c8;
+      --accent: #6c7bff;
+    }
+    * { box-sizing: border-box; }
+    html, body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      background: linear-gradient(180deg, #0a0e2e 0%, #050714 100%);
+      color: var(--text);
+      line-height: 1.4;
+    }
+    header {
+      padding: 28px 20px 12px;
+      text-align: center;
+    }
+    header h1 {
+      font-size: 20px;
+      margin: 0 0 4px;
+    }
+    header p {
+      color: var(--text-secondary);
+      margin: 0;
+      font-size: 13px;
+    }
+    main {
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+    .app-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 16px;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+    .app-icon {
+      width: 52px;
+      height: 52px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 26px;
+      flex-shrink: 0;
+      overflow: hidden;
+      background: rgba(255, 255, 255, 0.06);
+    }
+    .app-icon img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    .app-info {
+      flex: 1;
+      min-width: 0;
+    }
+    .app-name {
+      font-size: 15px;
+      font-weight: 600;
+      margin: 0;
+    }
+    .app-tagline {
+      color: var(--text-secondary);
+      font-size: 12px;
+      margin: 2px 0 0;
+    }
+    .app-action {
+      flex-shrink: 0;
+    }
+    .open-button {
+      display: inline-block;
+      padding: 9px 14px;
+      border-radius: 10px;
+      background: var(--accent);
+      color: white;
+      text-decoration: none;
+      font-size: 13px;
+      font-weight: 600;
+      border: none;
+      cursor: pointer;
+      font-family: inherit;
+    }
+    .badge-soon {
+      display: inline-block;
+      font-size: 11px;
+      font-weight: 600;
+      padding: 6px 12px;
+      border-radius: 999px;
+      background: rgba(255, 196, 70, 0.15);
+      color: #ffd370;
+      letter-spacing: 0.02em;
+      white-space: nowrap;
+    }
+    .empty-state {
+      text-align: center;
+      color: var(--text-secondary);
+      font-size: 13px;
+      padding: 32px 20px;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Conheça outros apps</h1>
+    <p>Feitos pelo mesmo desenvolvedor</p>
+  </header>
+
+  <main id="app-list"></main>
+
+  <script>
+    const APPS = [
+      {
+        id: 'cifras-praise',
+        name: 'Renascer Praise Cifras',
+        tagline: 'Cifras para louvor e adoração',
+        icon: 'icons/cifras-praise.png',
+        status: 'live',
+        deepLink: '',
+        ios: 'https://apps.apple.com/br/app/renascer-praise-cifras/id6780117518',
+        android: 'https://play.google.com/store/apps/details?id=com.boliveira.cifraspraise&hl=pt_BR',
+      },
+      {
+        id: 'merge-rise',
+        name: 'Merge Rise',
+        tagline: 'Puzzle de fusão com progressão por níveis',
+        icon: 'icons/merge-rise.png',
+        status: 'dev',
+        deepLink: '',
+        ios: '',
+        android: '',
+      },
+      {
+        id: 'snap-puzzle',
+        name: 'Snap Puzzle',
+        tagline: 'Quebra-cabeça com suas próprias fotos',
+        icon: '🧩',
+        status: 'dev',
+        deepLink: '',
+        ios: '',
+        android: '',
+      },
+    ];
+
+    function detectStoreUrl(app) {
+      const ua = navigator.userAgent;
+      const isAndroid = /android/i.test(ua);
+      const isIOS = /iphone|ipad|ipod/i.test(ua);
+      if (isAndroid) return app.android || app.ios;
+      if (isIOS) return app.ios || app.android;
+      return app.android || app.ios;
+    }
+
+    function openApp(app) {
+      const storeUrl = detectStoreUrl(app);
+      if (!storeUrl) return;
+
+      if (!app.deepLink) {
+        window.location.href = storeUrl;
+        return;
+      }
+
+      let appOpened = false;
+      const markOpened = () => { appOpened = true; };
+      document.addEventListener('visibilitychange', markOpened, { once: true });
+      window.addEventListener('pagehide', markOpened, { once: true });
+
+      window.location.href = app.deepLink;
+
+      setTimeout(() => {
+        document.removeEventListener('visibilitychange', markOpened);
+        window.removeEventListener('pagehide', markOpened);
+        if (!appOpened) window.location.href = storeUrl;
+      }, 1500);
+    }
+
+    function renderIcon(app) {
+      if (app.icon && app.icon.includes('/')) {
+        const img = document.createElement('img');
+        img.src = app.icon;
+        img.alt = `Ícone ${app.name}`;
+        return img;
+      }
+      const span = document.createElement('span');
+      span.textContent = app.icon || '📱';
+      return span;
+    }
+
+    function renderApp(app, index) {
+      const card = document.createElement('section');
+      card.className = 'app-card';
+
+      const icon = document.createElement('div');
+      icon.className = 'app-icon';
+      icon.appendChild(renderIcon(app));
+
+      const info = document.createElement('div');
+      info.className = 'app-info';
+      const name = document.createElement('p');
+      name.className = 'app-name';
+      name.textContent = app.name;
+      const tagline = document.createElement('p');
+      tagline.className = 'app-tagline';
+      tagline.textContent = app.tagline;
+      info.append(name, tagline);
+
+      const action = document.createElement('div');
+      action.className = 'app-action';
+      const canOpen = app.status === 'live' && (app.ios || app.android);
+      if (canOpen) {
+        const button = document.createElement('button');
+        button.className = 'open-button';
+        button.type = 'button';
+        button.textContent = 'Abrir →';
+        button.addEventListener('click', () => openApp(app));
+        action.appendChild(button);
+      } else {
+        const badge = document.createElement('span');
+        badge.className = 'badge-soon';
+        badge.textContent = 'EM BREVE';
+        action.appendChild(badge);
+      }
+
+      card.append(icon, info, action);
+      return card;
+    }
+
+    function render() {
+      const currentId = new URLSearchParams(window.location.search).get('from');
+      const others = APPS.filter((app) => app.id !== currentId);
+      const list = document.getElementById('app-list');
+
+      if (others.length === 0) {
+        const empty = document.createElement('p');
+        empty.className = 'empty-state';
+        empty.textContent = 'Nenhum outro app disponível por aqui ainda.';
+        list.appendChild(empty);
+        return;
+      }
+
+      others.forEach((app, index) => list.appendChild(renderApp(app, index)));
+    }
+
+    render();
+  </script>
+</body>
+</html>
