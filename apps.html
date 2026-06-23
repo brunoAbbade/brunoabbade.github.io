@@ -175,6 +175,19 @@
         return;
       }
 
+      // Dentro de uma WebView nativa embutida (Android/iOS), o documento não
+      // dispara visibilitychange/pagehide quando o app hospedeiro vai para
+      // segundo plano — só funciona assim num navegador de verdade. Quando
+      // o app injeta esse canal (ver core/widgets ou screens/*_apps_screen
+      // de cada app Flutter), delega a decisão pro nativo: ele sabe com
+      // certeza, via launchUrl, se o deep link funcionou ou não.
+      if (window.CrossPromoBridge) {
+        window.CrossPromoBridge.postMessage(
+          JSON.stringify({ deepLink: app.deepLink, storeUrl })
+        );
+        return;
+      }
+
       let appOpened = false;
       const markOpened = () => { appOpened = true; };
       document.addEventListener('visibilitychange', markOpened, { once: true });
