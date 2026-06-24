@@ -20,6 +20,9 @@
       background: linear-gradient(180deg, #0a0e2e 0%, #050714 100%);
       color: var(--text);
       line-height: 1.4;
+      /* Sem isso, arrastar além do topo/fim revela o fundo nativo da
+         WebView (branco por padrão) por baixo do bounce/overscroll. */
+      overscroll-behavior: none;
     }
     header {
       padding: 28px 20px 12px;
