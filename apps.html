@@ -164,8 +164,8 @@
       const ua = navigator.userAgent;
       const isAndroid = /android/i.test(ua);
       const isIOS = /iphone|ipad|ipod/i.test(ua);
-      if (isAndroid) return app.android || app.ios;
-      if (isIOS) return app.ios || app.android;
+      if (isAndroid) return app.android || '';
+      if (isIOS) return app.ios || '';
       return app.android || app.ios;
     }
 
@@ -237,7 +237,7 @@
 
       const action = document.createElement('div');
       action.className = 'app-action';
-      const canOpen = app.status === 'live' && (app.ios || app.android);
+      const canOpen = app.status === 'live' && !!detectStoreUrl(app);
       if (canOpen) {
         const button = document.createElement('button');
         button.className = 'open-button';
