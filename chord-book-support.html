@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Support — Chord Book</title>
+  <style>
+    :root {
+      --bg: #0a0e2e;
+      --bg-card: rgba(255, 255, 255, 0.04);
+      --border: rgba(255, 255, 255, 0.08);
+      --text: #f2f3f8;
+      --text-secondary: #aab0c8;
+      --accent: #6c7bff;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      background: linear-gradient(180deg, #0a0e2e 0%, #050714 100%);
+      color: var(--text);
+      line-height: 1.6;
+    }
+    main {
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 56px 24px 64px;
+    }
+    a { color: var(--accent); }
+    .back-link {
+      display: inline-block;
+      margin-bottom: 24px;
+      font-size: 14px;
+      color: var(--text-secondary);
+      text-decoration: none;
+    }
+    h1 { font-size: 26px; margin: 0 0 24px; }
+    .card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 24px;
+    }
+    .email-box {
+      display: inline-block;
+      margin-top: 12px;
+      padding: 12px 20px;
+      border-radius: 10px;
+      background: var(--accent);
+      color: white;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 15px;
+    }
+    .lang-switcher {
+      position: fixed;
+      top: 16px;
+      right: 16px;
+      display: flex;
+      gap: 4px;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 4px;
+      z-index: 10;
+      backdrop-filter: blur(8px);
+    }
+    .lang-switcher button {
+      background: transparent;
+      border: none;
+      color: var(--text-secondary);
+      padding: 6px 12px;
+      border-radius: 8px;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.03em;
+      cursor: pointer;
+    }
+    .lang-switcher button.active {
+      background: var(--accent);
+      color: white;
+    }
+    [data-lang-content] { display: none; }
+    [data-lang-content].active { display: block; }
+  </style>
+</head>
+<body>
+  <div class="lang-switcher">
+    <button data-lang-btn="en">EN</button>
+    <button data-lang-btn="pt">PT</button>
+    <button data-lang-btn="es">ES</button>
+  </div>
+
+  <main>
+    <a class="back-link" href="./">← Back</a>
+
+    <div data-lang-content="en">
+      <h1>🛟 Support — Chord Book</h1>
+      <div class="card">
+        <p>Need help, found a bug, or have a suggestion for the Chord Book app?</p>
+        <p>Get in touch by email: <strong>developercifraspraise@gmail.com</strong></p>
+        <a class="email-box" href="mailto:developercifraspraise@gmail.com">Click here to send an email →</a>
+        <p style="margin-top: 20px;">We'll get back to you as soon as possible.</p>
+      </div>
+    </div>
+
+    <div data-lang-content="pt">
+      <h1>🛟 Suporte — Chord Book</h1>
+      <div class="card">
+        <p>Precisa de ajuda, encontrou um problema ou tem uma sugestão para o app Chord Book?</p>
+        <p>Entre em contato pelo e-mail: <strong>developercifraspraise@gmail.com</strong></p>
+        <a class="email-box" href="mailto:developercifraspraise@gmail.com">Clique aqui para enviar um e-mail →</a>
+        <p style="margin-top: 20px;">Responderemos o mais breve possível.</p>
+      </div>
+    </div>
+
+    <div data-lang-content="es">
+      <h1>🛟 Soporte — Chord Book</h1>
+      <div class="card">
+        <p>¿Necesitas ayuda, encontraste un error o tienes una sugerencia para la app Chord Book?</p>
+        <p>Ponte en contacto por correo: <strong>developercifraspraise@gmail.com</strong></p>
+        <a class="email-box" href="mailto:developercifraspraise@gmail.com">Haz clic aquí para enviar un correo →</a>
+        <p style="margin-top: 20px;">Responderemos lo antes posible.</p>
+      </div>
+    </div>
+  </main>
+
+  <script>
+    function setLang(lang) {
+      document.querySelectorAll('[data-lang-content]').forEach(function (el) {
+        el.classList.toggle('active', el.getAttribute('data-lang-content') === lang);
+      });
+      document.querySelectorAll('[data-lang-btn]').forEach(function (btn) {
+        btn.classList.toggle('active', btn.getAttribute('data-lang-btn') === lang);
+      });
+      localStorage.setItem('lang', lang);
+    }
+    document.querySelectorAll('[data-lang-btn]').forEach(function (btn) {
+      btn.addEventListener('click', function () { setLang(btn.getAttribute('data-lang-btn')); });
+    });
+    setLang(localStorage.getItem('lang') || 'en');
+  </script>
+</body>
+</html>
