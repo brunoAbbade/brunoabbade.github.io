@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -173,145 +173,437 @@
     footer a {
       color: var(--text-secondary);
     }
+    .lang-switcher {
+      position: fixed;
+      top: 16px;
+      right: 16px;
+      display: flex;
+      gap: 4px;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 4px;
+      z-index: 10;
+      backdrop-filter: blur(8px);
+    }
+    .lang-switcher button {
+      background: transparent;
+      border: none;
+      color: var(--text-secondary);
+      padding: 6px 12px;
+      border-radius: 8px;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.03em;
+      cursor: pointer;
+    }
+    .lang-switcher button.active {
+      background: var(--accent);
+      color: white;
+    }
+    [data-lang-content] { display: none; }
+    [data-lang-content].active { display: block; }
   </style>
 </head>
 <body>
-  <header>
-    <p>Apps e jogos para iOS e Android</p>
-  </header>
+  <div class="lang-switcher">
+    <button data-lang-btn="en">EN</button>
+    <button data-lang-btn="pt">PT</button>
+    <button data-lang-btn="es">ES</button>
+  </div>
 
-  <main>
-    <section class="app-card">
-      <div class="app-card-header">
-        <div class="app-icon"><img src="icons/cifras-praise.png" alt="Ícone Renascer Praise Cifras" /></div>
-        <div>
-          <p class="app-name">Renascer Praise Cifras</p>
-          <p class="app-tagline">Cifras para louvor e adoração</p>
+  <!-- ===== ENGLISH ===== -->
+  <div data-lang-content="en">
+    <header>
+      <p>Apps and games for iOS and Android</p>
+    </header>
+
+    <main>
+      <section class="app-card">
+        <div class="app-card-header">
+          <div class="app-icon"><img src="icons/cifras-praise.png" alt="Renascer Praise Cifras icon" /></div>
+          <div>
+            <p class="app-name">Renascer Praise Cifras</p>
+            <p class="app-tagline">Chords for praise and worship</p>
+          </div>
         </div>
-      </div>
-      <p class="app-description">
-        App de cifras musicais com mais de 200 hinos e louvores, pensado para
-        músicos e grupos de adoração. Funciona offline depois da primeira sincronização.
-      </p>
-      <ul class="features">
-        <li>Mais de 200 cifras com tom e acordes</li>
-        <li>Transposição de tom em tempo real</li>
-        <li>Repertório personalizado com reordenação</li>
-        <li>Busca instantânea por título</li>
-        <li>Modo claro/escuro e cores de fundo</li>
-        <li>Auto-scroll com velocidade ajustável</li>
-        <li>Português, inglês e espanhol</li>
-        <li>Funciona sem internet após o primeiro uso</li>
-      </ul>
-      <span class="badge badge-live">DISPONÍVEL NA APP STORE E PLAY STORE</span>
-      <br />
-      <div class="store-links">
-        <a class="store-link" href="https://apps.apple.com/br/app/renascer-praise-cifras/id6780117518">
-          Baixar na App Store →
-        </a>
-        <a class="store-link store-link-android" href="https://play.google.com/store/apps/details?id=com.boliveira.cifraspraise&hl=pt_BR">
-          Baixar no Google Play →
-        </a>
-      </div>
-      <div class="legal-links">
-        <a href="cifras-praise-privacy.html">Política de Privacidade</a>
-        <a href="cifras-praise-support.html">Suporte</a>
-      </div>
-    </section>
-
-    <section class="app-card">
-      <div class="app-card-header">
-        <div class="app-icon"><img src="icons/merge-rise.png" alt="Ícone Merge Rise" /></div>
-        <div>
-          <p class="app-name">Merge Rise</p>
-          <p class="app-tagline">Puzzle de fusão com progressão por níveis</p>
+        <p class="app-description">
+          Music chord app with over 200 hymns and praises, designed for musicians and worship groups. Works offline after the first sync.
+        </p>
+        <ul class="features">
+          <li>Over 200 chords with key and tabs</li>
+          <li>Real-time key transposition</li>
+          <li>Custom repertoire with reordering</li>
+          <li>Instant search by title</li>
+          <li>Light/dark mode and background colors</li>
+          <li>Auto-scroll with adjustable speed</li>
+          <li>Portuguese, English and Spanish</li>
+          <li>Works without internet after first use</li>
+        </ul>
+        <span class="badge badge-live">AVAILABLE ON APP STORE AND PLAY STORE</span>
+        <br />
+        <div class="store-links">
+          <a class="store-link" href="https://apps.apple.com/br/app/renascer-praise-cifras/id6780117518">Download on App Store →</a>
+          <a class="store-link store-link-android" href="https://play.google.com/store/apps/details?id=com.boliveira.cifraspraise&hl=pt_BR">Get on Google Play →</a>
         </div>
-      </div>
-      <p class="app-description">
-        Jogo de puzzle estilo merge/2048 reinventado, com objetivos por nível
-        e histórico de partidas para acompanhar sua evolução.
-      </p>
-      <ul class="features">
-        <li>Mecânica de fusão clássica reinventada</li>
-        <li>Progressão por níveis com objetivos</li>
-        <li>Histórico de partidas</li>
-        <li>Efeitos sonoros e configurações</li>
-      </ul>
-      <span class="badge badge-live">DISPONÍVEL NA APP STORE E PLAY STORE</span>
-      <br />
-      <div class="store-links">
-        <a class="store-link" href="https://apps.apple.com/br/app/merge-rise/id6781752965">
-          Baixar na App Store →
-        </a>
-        <a class="store-link store-link-android" href="https://play.google.com/store/apps/details?id=com.brunoabbade.merge_rise_game&hl=pt_BR">
-          Baixar no Google Play →
-        </a>
-      </div>
-      <div class="legal-links">
-        <a href="merge-rise-privacy.html">Política de Privacidade</a>
-        <a href="merge-rise-support.html">Suporte</a>
-      </div>
-    </section>
-
-    <section class="app-card">
-      <div class="app-card-header">
-        <div class="app-icon"><img src="icons/snap-puzzle.png" alt="Ícone Snap Puzzle" /></div>
-        <div>
-          <p class="app-name">Snap Puzzle</p>
-          <p class="app-tagline">Quebra-cabeça com suas próprias fotos</p>
+        <div class="legal-links">
+          <a href="cifras-praise-privacy.html">Privacy Policy</a>
+          <a href="cifras-praise-support.html">Support</a>
         </div>
-      </div>
-      <p class="app-description">
-        Transforme qualquer foto da sua galeria em um quebra-cabeça e monte
-        no seu próprio ritmo, com vários níveis de dificuldade.
-      </p>
-      <ul class="features">
-        <li>Use qualquer foto como puzzle</li>
-        <li>Vários níveis de dificuldade</li>
-        <li>Progresso salvo automaticamente</li>
-      </ul>
-      <span class="badge badge-live">DISPONÍVEL NA APP STORE E PLAY STORE</span>
-      <br />
-      <div class="store-links">
-        <a class="store-link" href="https://apps.apple.com/br/app/snap-puzzle/id6782507078">
-          Baixar na App Store →
-        </a>
-        <a class="store-link store-link-android" href="https://play.google.com/store/apps/details?id=com.babbade.snap_puzzle&hl=pt_BR">
-          Baixar no Google Play →
-        </a>
-      </div>
-      <div class="legal-links">
-        <a href="snap-puzzle-privacy.html">Política de Privacidade</a>
-        <a href="snap-puzzle-support.html">Suporte</a>
-      </div>
-    </section>
+      </section>
 
-    <section class="app-card">
-      <div class="app-card-header">
-        <div class="app-icon"><img src="icons/chord-book.png" alt="Ícone Chord Book" /></div>
-        <div>
-          <p class="app-name">Chord Book</p>
-          <p class="app-tagline">Cifras e acordes para músicos</p>
+      <section class="app-card">
+        <div class="app-card-header">
+          <div class="app-icon"><img src="icons/merge-rise.png" alt="Merge Rise icon" /></div>
+          <div>
+            <p class="app-name">Merge Rise</p>
+            <p class="app-tagline">Merge puzzle with level progression</p>
+          </div>
         </div>
-      </div>
-      <p class="app-description">
-        Organize e acesse suas cifras favoritas com suporte a acordes e transposição de tom.
-      </p>
-      <ul class="features">
-        <li>Cifras salvas localmente</li>
-        <li>Transposição de tom</li>
-        <li>Modo claro/escuro</li>
-      </ul>
-      <span class="badge badge-dev">EM DESENVOLVIMENTO</span>
-      <div class="legal-links">
-        <a href="chord-book-privacy.html">Política de Privacidade</a>
-        <a href="chord-book-support.html">Suporte</a>
-      </div>
-    </section>
-  </main>
+        <p class="app-description">
+          Reinvented merge/2048 style puzzle game, with level objectives and match history to track your progress.
+        </p>
+        <ul class="features">
+          <li>Reinvented classic merge mechanic</li>
+          <li>Level progression with objectives</li>
+          <li>Match history</li>
+          <li>Sound effects and settings</li>
+        </ul>
+        <span class="badge badge-live">AVAILABLE ON APP STORE AND PLAY STORE</span>
+        <br />
+        <div class="store-links">
+          <a class="store-link" href="https://apps.apple.com/br/app/merge-rise/id6781752965">Download on App Store →</a>
+          <a class="store-link store-link-android" href="https://play.google.com/store/apps/details?id=com.brunoabbade.merge_rise_game&hl=pt_BR">Get on Google Play →</a>
+        </div>
+        <div class="legal-links">
+          <a href="merge-rise-privacy.html">Privacy Policy</a>
+          <a href="merge-rise-support.html">Support</a>
+        </div>
+      </section>
 
-  <footer>
-    <p>© 2026 Bruno Augusto Abbade Oliveira</p>
-  </footer>
+      <section class="app-card">
+        <div class="app-card-header">
+          <div class="app-icon"><img src="icons/snap-puzzle.png" alt="Snap Puzzle icon" /></div>
+          <div>
+            <p class="app-name">Snap Puzzle</p>
+            <p class="app-tagline">Jigsaw puzzle with your own photos</p>
+          </div>
+        </div>
+        <p class="app-description">
+          Turn any photo from your gallery into a puzzle and assemble it at your own pace, with multiple difficulty levels.
+        </p>
+        <ul class="features">
+          <li>Use any photo as a puzzle</li>
+          <li>Multiple difficulty levels</li>
+          <li>Progress saved automatically</li>
+        </ul>
+        <span class="badge badge-live">AVAILABLE ON APP STORE AND PLAY STORE</span>
+        <br />
+        <div class="store-links">
+          <a class="store-link" href="https://apps.apple.com/br/app/snap-puzzle/id6782507078">Download on App Store →</a>
+          <a class="store-link store-link-android" href="https://play.google.com/store/apps/details?id=com.babbade.snap_puzzle&hl=pt_BR">Get on Google Play →</a>
+        </div>
+        <div class="legal-links">
+          <a href="snap-puzzle-privacy.html">Privacy Policy</a>
+          <a href="snap-puzzle-support.html">Support</a>
+        </div>
+      </section>
+
+      <section class="app-card">
+        <div class="app-card-header">
+          <div class="app-icon"><img src="icons/chord-book.png" alt="Chord Book icon" /></div>
+          <div>
+            <p class="app-name">Chord Book</p>
+            <p class="app-tagline">Chords and tabs for musicians</p>
+          </div>
+        </div>
+        <p class="app-description">
+          Organize and access your favorite chord charts with chord support and key transposition.
+        </p>
+        <ul class="features">
+          <li>Locally saved chords</li>
+          <li>Key transposition</li>
+          <li>Light/dark mode</li>
+        </ul>
+        <span class="badge badge-dev">IN DEVELOPMENT</span>
+        <div class="legal-links">
+          <a href="chord-book-privacy.html">Privacy Policy</a>
+          <a href="chord-book-support.html">Support</a>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <p>© 2026 Bruno Augusto Abbade Oliveira</p>
+    </footer>
+  </div>
+
+  <!-- ===== PORTUGUÊS ===== -->
+  <div data-lang-content="pt">
+    <header>
+      <p>Apps e jogos para iOS e Android</p>
+    </header>
+
+    <main>
+      <section class="app-card">
+        <div class="app-card-header">
+          <div class="app-icon"><img src="icons/cifras-praise.png" alt="Ícone Renascer Praise Cifras" /></div>
+          <div>
+            <p class="app-name">Renascer Praise Cifras</p>
+            <p class="app-tagline">Cifras para louvor e adoração</p>
+          </div>
+        </div>
+        <p class="app-description">
+          App de cifras musicais com mais de 200 hinos e louvores, pensado para músicos e grupos de adoração. Funciona offline depois da primeira sincronização.
+        </p>
+        <ul class="features">
+          <li>Mais de 200 cifras com tom e acordes</li>
+          <li>Transposição de tom em tempo real</li>
+          <li>Repertório personalizado com reordenação</li>
+          <li>Busca instantânea por título</li>
+          <li>Modo claro/escuro e cores de fundo</li>
+          <li>Auto-scroll com velocidade ajustável</li>
+          <li>Português, inglês e espanhol</li>
+          <li>Funciona sem internet após o primeiro uso</li>
+        </ul>
+        <span class="badge badge-live">DISPONÍVEL NA APP STORE E PLAY STORE</span>
+        <br />
+        <div class="store-links">
+          <a class="store-link" href="https://apps.apple.com/br/app/renascer-praise-cifras/id6780117518">Baixar na App Store →</a>
+          <a class="store-link store-link-android" href="https://play.google.com/store/apps/details?id=com.boliveira.cifraspraise&hl=pt_BR">Baixar no Google Play →</a>
+        </div>
+        <div class="legal-links">
+          <a href="cifras-praise-privacy.html">Política de Privacidade</a>
+          <a href="cifras-praise-support.html">Suporte</a>
+        </div>
+      </section>
+
+      <section class="app-card">
+        <div class="app-card-header">
+          <div class="app-icon"><img src="icons/merge-rise.png" alt="Ícone Merge Rise" /></div>
+          <div>
+            <p class="app-name">Merge Rise</p>
+            <p class="app-tagline">Puzzle de fusão com progressão por níveis</p>
+          </div>
+        </div>
+        <p class="app-description">
+          Jogo de puzzle estilo merge/2048 reinventado, com objetivos por nível e histórico de partidas para acompanhar sua evolução.
+        </p>
+        <ul class="features">
+          <li>Mecânica de fusão clássica reinventada</li>
+          <li>Progressão por níveis com objetivos</li>
+          <li>Histórico de partidas</li>
+          <li>Efeitos sonoros e configurações</li>
+        </ul>
+        <span class="badge badge-live">DISPONÍVEL NA APP STORE E PLAY STORE</span>
+        <br />
+        <div class="store-links">
+          <a class="store-link" href="https://apps.apple.com/br/app/merge-rise/id6781752965">Baixar na App Store →</a>
+          <a class="store-link store-link-android" href="https://play.google.com/store/apps/details?id=com.brunoabbade.merge_rise_game&hl=pt_BR">Baixar no Google Play →</a>
+        </div>
+        <div class="legal-links">
+          <a href="merge-rise-privacy.html">Política de Privacidade</a>
+          <a href="merge-rise-support.html">Suporte</a>
+        </div>
+      </section>
+
+      <section class="app-card">
+        <div class="app-card-header">
+          <div class="app-icon"><img src="icons/snap-puzzle.png" alt="Ícone Snap Puzzle" /></div>
+          <div>
+            <p class="app-name">Snap Puzzle</p>
+            <p class="app-tagline">Quebra-cabeça com suas próprias fotos</p>
+          </div>
+        </div>
+        <p class="app-description">
+          Transforme qualquer foto da sua galeria em um quebra-cabeça e monte no seu próprio ritmo, com vários níveis de dificuldade.
+        </p>
+        <ul class="features">
+          <li>Use qualquer foto como puzzle</li>
+          <li>Vários níveis de dificuldade</li>
+          <li>Progresso salvo automaticamente</li>
+        </ul>
+        <span class="badge badge-live">DISPONÍVEL NA APP STORE E PLAY STORE</span>
+        <br />
+        <div class="store-links">
+          <a class="store-link" href="https://apps.apple.com/br/app/snap-puzzle/id6782507078">Baixar na App Store →</a>
+          <a class="store-link store-link-android" href="https://play.google.com/store/apps/details?id=com.babbade.snap_puzzle&hl=pt_BR">Baixar no Google Play →</a>
+        </div>
+        <div class="legal-links">
+          <a href="snap-puzzle-privacy.html">Política de Privacidade</a>
+          <a href="snap-puzzle-support.html">Suporte</a>
+        </div>
+      </section>
+
+      <section class="app-card">
+        <div class="app-card-header">
+          <div class="app-icon"><img src="icons/chord-book.png" alt="Ícone Chord Book" /></div>
+          <div>
+            <p class="app-name">Chord Book</p>
+            <p class="app-tagline">Cifras e acordes para músicos</p>
+          </div>
+        </div>
+        <p class="app-description">
+          Organize e acesse suas cifras favoritas com suporte a acordes e transposição de tom.
+        </p>
+        <ul class="features">
+          <li>Cifras salvas localmente</li>
+          <li>Transposição de tom</li>
+          <li>Modo claro/escuro</li>
+        </ul>
+        <span class="badge badge-dev">EM DESENVOLVIMENTO</span>
+        <div class="legal-links">
+          <a href="chord-book-privacy.html">Política de Privacidade</a>
+          <a href="chord-book-support.html">Suporte</a>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <p>© 2026 Bruno Augusto Abbade Oliveira</p>
+    </footer>
+  </div>
+
+  <!-- ===== ESPAÑOL ===== -->
+  <div data-lang-content="es">
+    <header>
+      <p>Apps y juegos para iOS y Android</p>
+    </header>
+
+    <main>
+      <section class="app-card">
+        <div class="app-card-header">
+          <div class="app-icon"><img src="icons/cifras-praise.png" alt="Ícono Renascer Praise Cifras" /></div>
+          <div>
+            <p class="app-name">Renascer Praise Cifras</p>
+            <p class="app-tagline">Cifras de alabanza y adoración</p>
+          </div>
+        </div>
+        <p class="app-description">
+          App de cifras musicales con más de 200 himnos y alabanzas, pensada para músicos y grupos de adoración. Funciona sin internet tras la primera sincronización.
+        </p>
+        <ul class="features">
+          <li>Más de 200 cifras con tono y acordes</li>
+          <li>Transposición de tono en tiempo real</li>
+          <li>Repertorio personalizado con reordenación</li>
+          <li>Búsqueda instantánea por título</li>
+          <li>Modo claro/oscuro y colores de fondo</li>
+          <li>Auto-scroll con velocidad ajustable</li>
+          <li>Portugués, inglés y español</li>
+          <li>Funciona sin internet tras el primer uso</li>
+        </ul>
+        <span class="badge badge-live">DISPONIBLE EN APP STORE Y PLAY STORE</span>
+        <br />
+        <div class="store-links">
+          <a class="store-link" href="https://apps.apple.com/br/app/renascer-praise-cifras/id6780117518">Descargar en App Store →</a>
+          <a class="store-link store-link-android" href="https://play.google.com/store/apps/details?id=com.boliveira.cifraspraise&hl=pt_BR">Obtener en Google Play →</a>
+        </div>
+        <div class="legal-links">
+          <a href="cifras-praise-privacy.html">Política de Privacidad</a>
+          <a href="cifras-praise-support.html">Soporte</a>
+        </div>
+      </section>
+
+      <section class="app-card">
+        <div class="app-card-header">
+          <div class="app-icon"><img src="icons/merge-rise.png" alt="Ícono Merge Rise" /></div>
+          <div>
+            <p class="app-name">Merge Rise</p>
+            <p class="app-tagline">Puzzle de fusión con progresión por niveles</p>
+          </div>
+        </div>
+        <p class="app-description">
+          Juego de puzzle estilo merge/2048 reinventado, con objetivos por nivel e historial de partidas para seguir tu evolución.
+        </p>
+        <ul class="features">
+          <li>Mecánica de fusión clásica reinventada</li>
+          <li>Progresión por niveles con objetivos</li>
+          <li>Historial de partidas</li>
+          <li>Efectos de sonido y configuración</li>
+        </ul>
+        <span class="badge badge-live">DISPONIBLE EN APP STORE Y PLAY STORE</span>
+        <br />
+        <div class="store-links">
+          <a class="store-link" href="https://apps.apple.com/br/app/merge-rise/id6781752965">Descargar en App Store →</a>
+          <a class="store-link store-link-android" href="https://play.google.com/store/apps/details?id=com.brunoabbade.merge_rise_game&hl=pt_BR">Obtener en Google Play →</a>
+        </div>
+        <div class="legal-links">
+          <a href="merge-rise-privacy.html">Política de Privacidad</a>
+          <a href="merge-rise-support.html">Soporte</a>
+        </div>
+      </section>
+
+      <section class="app-card">
+        <div class="app-card-header">
+          <div class="app-icon"><img src="icons/snap-puzzle.png" alt="Ícono Snap Puzzle" /></div>
+          <div>
+            <p class="app-name">Snap Puzzle</p>
+            <p class="app-tagline">Rompecabezas con tus propias fotos</p>
+          </div>
+        </div>
+        <p class="app-description">
+          Convierte cualquier foto de tu galería en un rompecabezas y arma el puzzle a tu propio ritmo, con varios niveles de dificultad.
+        </p>
+        <ul class="features">
+          <li>Usa cualquier foto como puzzle</li>
+          <li>Varios niveles de dificultad</li>
+          <li>Progreso guardado automáticamente</li>
+        </ul>
+        <span class="badge badge-live">DISPONIBLE EN APP STORE Y PLAY STORE</span>
+        <br />
+        <div class="store-links">
+          <a class="store-link" href="https://apps.apple.com/br/app/snap-puzzle/id6782507078">Descargar en App Store →</a>
+          <a class="store-link store-link-android" href="https://play.google.com/store/apps/details?id=com.babbade.snap_puzzle&hl=pt_BR">Obtener en Google Play →</a>
+        </div>
+        <div class="legal-links">
+          <a href="snap-puzzle-privacy.html">Política de Privacidad</a>
+          <a href="snap-puzzle-support.html">Soporte</a>
+        </div>
+      </section>
+
+      <section class="app-card">
+        <div class="app-card-header">
+          <div class="app-icon"><img src="icons/chord-book.png" alt="Ícono Chord Book" /></div>
+          <div>
+            <p class="app-name">Chord Book</p>
+            <p class="app-tagline">Cifras y acordes para músicos</p>
+          </div>
+        </div>
+        <p class="app-description">
+          Organiza y accede a tus cifras favoritas con soporte para acordes y transposición de tono.
+        </p>
+        <ul class="features">
+          <li>Cifras guardadas localmente</li>
+          <li>Transposición de tono</li>
+          <li>Modo claro/oscuro</li>
+        </ul>
+        <span class="badge badge-dev">EN DESARROLLO</span>
+        <div class="legal-links">
+          <a href="chord-book-privacy.html">Política de Privacidad</a>
+          <a href="chord-book-support.html">Soporte</a>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <p>© 2026 Bruno Augusto Abbade Oliveira</p>
+    </footer>
+  </div>
+
+  <script>
+    function setLang(lang) {
+      document.querySelectorAll('[data-lang-content]').forEach(function (el) {
+        el.classList.toggle('active', el.getAttribute('data-lang-content') === lang);
+      });
+      document.querySelectorAll('[data-lang-btn]').forEach(function (btn) {
+        btn.classList.toggle('active', btn.getAttribute('data-lang-btn') === lang);
+      });
+      localStorage.setItem('lang', lang);
+    }
+    document.querySelectorAll('[data-lang-btn]').forEach(function (btn) {
+      btn.addEventListener('click', function () { setLang(btn.getAttribute('data-lang-btn')); });
+    });
+    setLang(localStorage.getItem('lang') || 'pt');
+  </script>
 </body>
 </html>
