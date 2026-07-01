@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Conheça outros apps</title>
+  <title>More Apps</title>
   <style>
     :root {
       --bg: #0a0e2e;
@@ -20,8 +20,6 @@
       background: linear-gradient(180deg, #0a0e2e 0%, #050714 100%);
       color: var(--text);
       line-height: 1.4;
-      /* Sem isso, arrastar além do topo/fim revela o fundo nativo da
-         WebView (branco por padrão) por baixo do bounce/overscroll. */
       overscroll-behavior: none;
     }
     header {
@@ -116,22 +114,94 @@
       font-size: 13px;
       padding: 32px 20px;
     }
+    .lang-switcher {
+      position: fixed;
+      top: 16px;
+      right: 16px;
+      display: flex;
+      gap: 4px;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 4px;
+      z-index: 10;
+      backdrop-filter: blur(8px);
+    }
+    .lang-switcher button {
+      background: transparent;
+      border: none;
+      color: var(--text-secondary);
+      padding: 6px 12px;
+      border-radius: 8px;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.03em;
+      cursor: pointer;
+    }
+    .lang-switcher button.active {
+      background: var(--accent);
+      color: white;
+    }
   </style>
 </head>
 <body>
+  <div class="lang-switcher">
+    <button data-lang-btn="en">EN</button>
+    <button data-lang-btn="pt">PT</button>
+    <button data-lang-btn="es">ES</button>
+  </div>
+
   <header>
-    <h1>Conheça outros apps</h1>
-    <p>Feitos pelo mesmo desenvolvedor</p>
+    <h1 id="header-title"></h1>
+    <p id="header-subtitle"></p>
   </header>
 
   <main id="app-list"></main>
 
   <script>
+    const I18N = {
+      en: {
+        headerTitle: 'Discover more apps',
+        headerSubtitle: 'Made by the same developer',
+        openBtn: 'Open →',
+        comingSoon: 'COMING SOON',
+        emptyState: 'No other apps available here yet.',
+        taglines: {
+          'cifras-praise': 'Gospel chords and praise music',
+          'merge-rise': 'Merge puzzle with level progression',
+          'snap-puzzle': 'Photo puzzle with your own pictures',
+        },
+      },
+      pt: {
+        headerTitle: 'Conheça outros apps',
+        headerSubtitle: 'Feitos pelo mesmo desenvolvedor',
+        openBtn: 'Abrir →',
+        comingSoon: 'EM BREVE',
+        emptyState: 'Nenhum outro app disponível por aqui ainda.',
+        taglines: {
+          'cifras-praise': 'Cifras para louvor e adoração',
+          'merge-rise': 'Puzzle de fusão com progressão por níveis',
+          'snap-puzzle': 'Quebra-cabeça com suas próprias fotos',
+        },
+      },
+      es: {
+        headerTitle: 'Descubre más apps',
+        headerSubtitle: 'Hechas por el mismo desarrollador',
+        openBtn: 'Abrir →',
+        comingSoon: 'PRÓXIMAMENTE',
+        emptyState: 'Aún no hay otras apps disponibles aquí.',
+        taglines: {
+          'cifras-praise': 'Cifras de alabanza y adoración',
+          'merge-rise': 'Puzzle de fusión con progresión por niveles',
+          'snap-puzzle': 'Rompecabezas con tus propias fotos',
+        },
+      },
+    };
+
     const APPS = [
       {
         id: 'cifras-praise',
         name: 'Renascer Praise Cifras',
-        tagline: 'Cifras para louvor e adoração',
         icon: 'icons/cifras-praise.png',
         status: 'live',
         deepLink: 'cifraspraise://open',
@@ -141,7 +211,6 @@
       {
         id: 'merge-rise',
         name: 'Merge Rise',
-        tagline: 'Puzzle de fusão com progressão por níveis',
         icon: 'icons/merge-rise.png',
         status: 'live',
         deepLink: 'mergerise://open',
@@ -151,7 +220,6 @@
       {
         id: 'snap-puzzle',
         name: 'Snap Puzzle',
-        tagline: 'Quebra-cabeça com suas próprias fotos',
         icon: 'icons/snap-puzzle.png',
         status: 'live',
         deepLink: 'snappuzzle://open',
@@ -160,17 +228,19 @@
       },
     ];
 
+    var currentLang = 'en';
+
     function detectStoreUrl(app) {
-      const ua = navigator.userAgent;
-      const isAndroid = /android/i.test(ua);
-      const isIOS = /iphone|ipad|ipod/i.test(ua);
+      var ua = navigator.userAgent;
+      var isAndroid = /android/i.test(ua);
+      var isIOS = /iphone|ipad|ipod/i.test(ua);
       if (isAndroid) return app.android || '';
       if (isIOS) return app.ios || '';
       return app.android || app.ios;
     }
 
     function openApp(app) {
-      const storeUrl = detectStoreUrl(app);
+      var storeUrl = detectStoreUrl(app);
       if (!storeUrl) return;
 
       if (!app.deepLink) {
@@ -178,27 +248,21 @@
         return;
       }
 
-      // Dentro de uma WebView nativa embutida (Android/iOS), o documento não
-      // dispara visibilitychange/pagehide quando o app hospedeiro vai para
-      // segundo plano — só funciona assim num navegador de verdade. Quando
-      // o app injeta esse canal (ver core/widgets ou screens/*_apps_screen
-      // de cada app Flutter), delega a decisão pro nativo: ele sabe com
-      // certeza, via launchUrl, se o deep link funcionou ou não.
       if (window.CrossPromoBridge) {
         window.CrossPromoBridge.postMessage(
-          JSON.stringify({ deepLink: app.deepLink, storeUrl })
+          JSON.stringify({ deepLink: app.deepLink, storeUrl: storeUrl })
         );
         return;
       }
 
-      let appOpened = false;
-      const markOpened = () => { appOpened = true; };
+      var appOpened = false;
+      var markOpened = function () { appOpened = true; };
       document.addEventListener('visibilitychange', markOpened, { once: true });
       window.addEventListener('pagehide', markOpened, { once: true });
 
       window.location.href = app.deepLink;
 
-      setTimeout(() => {
+      setTimeout(function () {
         document.removeEventListener('visibilitychange', markOpened);
         window.removeEventListener('pagehide', markOpened);
         if (!appOpened) window.location.href = storeUrl;
@@ -207,48 +271,49 @@
 
     function renderIcon(app) {
       if (app.icon && app.icon.includes('/')) {
-        const img = document.createElement('img');
+        var img = document.createElement('img');
         img.src = app.icon;
-        img.alt = `Ícone ${app.name}`;
+        img.alt = app.name;
         return img;
       }
-      const span = document.createElement('span');
+      var span = document.createElement('span');
       span.textContent = app.icon || '📱';
       return span;
     }
 
-    function renderApp(app, index) {
-      const card = document.createElement('section');
+    function renderApp(app) {
+      var t = I18N[currentLang];
+      var card = document.createElement('section');
       card.className = 'app-card';
 
-      const icon = document.createElement('div');
+      var icon = document.createElement('div');
       icon.className = 'app-icon';
       icon.appendChild(renderIcon(app));
 
-      const info = document.createElement('div');
+      var info = document.createElement('div');
       info.className = 'app-info';
-      const name = document.createElement('p');
+      var name = document.createElement('p');
       name.className = 'app-name';
       name.textContent = app.name;
-      const tagline = document.createElement('p');
+      var tagline = document.createElement('p');
       tagline.className = 'app-tagline';
-      tagline.textContent = app.tagline;
+      tagline.textContent = t.taglines[app.id] || '';
       info.append(name, tagline);
 
-      const action = document.createElement('div');
+      var action = document.createElement('div');
       action.className = 'app-action';
-      const canOpen = app.status === 'live' && !!detectStoreUrl(app);
+      var canOpen = app.status === 'live' && !!detectStoreUrl(app);
       if (canOpen) {
-        const button = document.createElement('button');
+        var button = document.createElement('button');
         button.className = 'open-button';
         button.type = 'button';
-        button.textContent = 'Abrir →';
-        button.addEventListener('click', () => openApp(app));
+        button.textContent = t.openBtn;
+        button.addEventListener('click', function () { openApp(app); });
         action.appendChild(button);
       } else {
-        const badge = document.createElement('span');
+        var badge = document.createElement('span');
         badge.className = 'badge-soon';
-        badge.textContent = 'EM BREVE';
+        badge.textContent = t.comingSoon;
         action.appendChild(badge);
       }
 
@@ -257,30 +322,48 @@
     }
 
     function applyAccentFromQuery() {
-      const accent = new URLSearchParams(window.location.search).get('accent');
+      var accent = new URLSearchParams(window.location.search).get('accent');
       if (accent && /^[0-9a-fA-F]{6}$/.test(accent)) {
-        document.documentElement.style.setProperty('--accent', `#${accent}`);
+        document.documentElement.style.setProperty('--accent', '#' + accent);
       }
     }
 
     function render() {
       applyAccentFromQuery();
-      const currentId = new URLSearchParams(window.location.search).get('from');
-      const others = APPS.filter((app) => app.id !== currentId);
-      const list = document.getElementById('app-list');
+      var t = I18N[currentLang];
+      document.getElementById('header-title').textContent = t.headerTitle;
+      document.getElementById('header-subtitle').textContent = t.headerSubtitle;
+
+      var currentId = new URLSearchParams(window.location.search).get('from');
+      var others = APPS.filter(function (app) { return app.id !== currentId; });
+      var list = document.getElementById('app-list');
+      list.innerHTML = '';
 
       if (others.length === 0) {
-        const empty = document.createElement('p');
+        var empty = document.createElement('p');
         empty.className = 'empty-state';
-        empty.textContent = 'Nenhum outro app disponível por aqui ainda.';
+        empty.textContent = t.emptyState;
         list.appendChild(empty);
         return;
       }
 
-      others.forEach((app, index) => list.appendChild(renderApp(app, index)));
+      others.forEach(function (app) { list.appendChild(renderApp(app)); });
     }
 
-    render();
+    function setLang(lang) {
+      currentLang = lang;
+      document.querySelectorAll('[data-lang-btn]').forEach(function (btn) {
+        btn.classList.toggle('active', btn.getAttribute('data-lang-btn') === lang);
+      });
+      localStorage.setItem('lang', lang);
+      render();
+    }
+
+    document.querySelectorAll('[data-lang-btn]').forEach(function (btn) {
+      btn.addEventListener('click', function () { setLang(btn.getAttribute('data-lang-btn')); });
+    });
+
+    setLang(localStorage.getItem('lang') || 'en');
   </script>
 </body>
 </html>
