@@ -202,6 +202,15 @@
       btn.addEventListener('click', function () { setLang(btn.getAttribute('data-lang-btn')); });
     });
     setLang(localStorage.getItem('lang') || 'en');
+
+    // Escondido quando aberto na WebView do app (?embedded=1) — lá o botão
+    // nativo de voltar já fecha a tela; o link "← Back" navegaria a WebView
+    // pra outra página do site, o que não faz sentido nesse contexto.
+    if (new URLSearchParams(window.location.search).get('embedded') === '1') {
+      document.querySelectorAll('.back-link').forEach(function (el) {
+        el.style.display = 'none';
+      });
+    }
   </script>
 </body>
 </html>
