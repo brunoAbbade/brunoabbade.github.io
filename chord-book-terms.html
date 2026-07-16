@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Terms of Service — Chord Book</title>
+  <style>
+    :root {
+      --bg: #0a0e2e;
+      --bg-card: rgba(255, 255, 255, 0.04);
+      --border: rgba(255, 255, 255, 0.08);
+      --text: #f2f3f8;
+      --text-secondary: #aab0c8;
+      --accent: #6c7bff;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      background: linear-gradient(180deg, #0a0e2e 0%, #050714 100%);
+      color: var(--text);
+      line-height: 1.6;
+    }
+    main {
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 56px 24px 64px;
+    }
+    a { color: var(--accent); }
+    .back-link {
+      display: inline-block;
+      margin-bottom: 24px;
+      font-size: 14px;
+      color: var(--text-secondary);
+      text-decoration: none;
+    }
+    h1 { font-size: 26px; margin: 0 0 4px; }
+    h2 { font-size: 18px; margin: 32px 0 8px; }
+    .updated { color: var(--text-secondary); font-size: 13px; margin: 0 0 32px; }
+    .card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 24px;
+    }
+    ul { padding-left: 20px; }
+    li { margin-bottom: 6px; }
+
+    .lang-switcher {
+      position: fixed;
+      top: 16px;
+      right: 16px;
+      display: flex;
+      gap: 4px;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 4px;
+      z-index: 10;
+      backdrop-filter: blur(8px);
+    }
+    .lang-switcher button {
+      background: transparent;
+      border: none;
+      color: var(--text-secondary);
+      padding: 6px 12px;
+      border-radius: 8px;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.03em;
+      cursor: pointer;
+    }
+    .lang-switcher button.active {
+      background: var(--accent);
+      color: white;
+    }
+    [data-lang-content] { display: none; }
+    [data-lang-content].active { display: block; }
+  </style>
+</head>
+<body>
+  <div class="lang-switcher">
+    <button data-lang-btn="en">EN</button>
+    <button data-lang-btn="pt">PT</button>
+    <button data-lang-btn="es">ES</button>
+  </div>
+
+  <main>
+    <a class="back-link" href="./chord-book.html">← Back</a>
+
+    <div data-lang-content="en">
+      <h1>📄 Terms of Service — Chord Book</h1>
+      <p class="updated">Last updated: July 16, 2026</p>
+      <div class="card">
+        <h2>👋 Acceptance of terms</h2>
+        <p>By downloading or using <strong>Chord Book</strong>, developed by Bruno Abbade, you agree to these Terms of Service. If you don't agree, please don't use the app.</p>
+
+        <h2>📖 What the app does</h2>
+        <p>Chord Book is a tool to organize, view and transpose chord charts, tabs and lyrics for personal use. The app is provided free of charge, supported by advertising.</p>
+
+        <h2>🎵 Content you import</h2>
+        <p>Chord Book lets you import chord charts as text or PDF files. <strong>You are solely responsible for the content you import</strong> — make sure you have the right to use and store it. Chord Book does not host, review or distribute any content on your behalf; everything you import stays on your own device (or, if you enable it, your own Google Drive account).</p>
+
+        <h2>☁️ Google Drive backup</h2>
+        <p>The optional Google Drive backup feature sends a copy of your data to your own Google account. Bruno Abbade has no access to this data and is not responsible for its availability, integrity or continuity — it's subject to Google's own terms and to your own account management.</p>
+
+        <h2>📢 Advertising</h2>
+        <p>Chord Book displays ads served through Google AdMob to help keep the app free. Ad content is provided by Google and third-party advertisers, not by the developer.</p>
+
+        <h2>🚫 No warranty</h2>
+        <p>Chord Book is provided <strong>"as is"</strong>, without warranties of any kind, express or implied. The developer does not guarantee the app will be uninterrupted, error-free, or fit for any particular purpose.</p>
+
+        <h2>⚖️ Limitation of liability</h2>
+        <p>To the maximum extent permitted by law, Bruno Abbade is not liable for any indirect, incidental or consequential damages arising from the use of, or inability to use, the app — including loss of data not backed up by the user.</p>
+
+        <h2>📝 Changes to these terms</h2>
+        <p>These terms may be updated from time to time. Continued use of the app after changes means you accept the revised terms. Updates will be published on this page with a new revision date.</p>
+
+        <h2>📬 Contact</h2>
+        <p>Questions about these terms can be sent to <strong>developercifraspraise@gmail.com</strong>. <a href="mailto:developercifraspraise@gmail.com">Click here to send an email →</a></p>
+      </div>
+    </div>
+
+    <div data-lang-content="pt">
+      <h1>📄 Termos de Serviço — Chord Book</h1>
+      <p class="updated">Última atualização: 16 de julho de 2026</p>
+      <div class="card">
+        <h2>👋 Aceitação dos termos</h2>
+        <p>Ao baixar ou usar o <strong>Chord Book</strong>, desenvolvido por Bruno Abbade, você concorda com estes Termos de Serviço. Se não concordar, por favor não use o app.</p>
+
+        <h2>📖 O que o app faz</h2>
+        <p>O Chord Book é uma ferramenta pra organizar, visualizar e transpor cifras, tablaturas e letras pra uso pessoal. O app é oferecido gratuitamente, mantido por publicidade.</p>
+
+        <h2>🎵 Conteúdo que você importa</h2>
+        <p>O Chord Book permite importar cifras como arquivos de texto ou PDF. <strong>Você é o único responsável pelo conteúdo que importa</strong> — certifique-se de ter o direito de usá-lo e armazená-lo. O Chord Book não hospeda, revisa nem distribui nenhum conteúdo em seu nome; tudo que você importa fica no seu próprio aparelho (ou, se você ativar, na sua própria conta do Google Drive).</p>
+
+        <h2>☁️ Backup no Google Drive</h2>
+        <p>O recurso opcional de backup no Google Drive envia uma cópia dos seus dados pra sua própria conta do Google. Bruno Abbade não tem acesso a esses dados e não é responsável pela disponibilidade, integridade ou continuidade deles — isso depende dos próprios termos do Google e de como você administra sua conta.</p>
+
+        <h2>📢 Publicidade</h2>
+        <p>O Chord Book exibe anúncios veiculados pelo Google AdMob pra ajudar a manter o app gratuito. O conteúdo dos anúncios é fornecido pelo Google e por anunciantes terceiros, não pelo desenvolvedor.</p>
+
+        <h2>🚫 Sem garantias</h2>
+        <p>O Chord Book é oferecido <strong>"como está"</strong>, sem garantias de qualquer tipo, expressas ou implícitas. O desenvolvedor não garante que o app será ininterrupto, livre de erros, ou adequado pra qualquer finalidade específica.</p>
+
+        <h2>⚖️ Limitação de responsabilidade</h2>
+        <p>No limite máximo permitido por lei, Bruno Abbade não é responsável por danos indiretos, incidentais ou consequenciais decorrentes do uso ou da impossibilidade de uso do app — incluindo perda de dados que o usuário não tenha feito backup.</p>
+
+        <h2>📝 Alterações nestes termos</h2>
+        <p>Esses termos podem ser atualizados de tempos em tempos. Continuar usando o app depois de uma alteração significa que você aceita os termos revisados. Atualizações serão publicadas nesta página com uma nova data de revisão.</p>
+
+        <h2>📬 Contato</h2>
+        <p>Dúvidas sobre estes termos podem ser enviadas para <strong>developercifraspraise@gmail.com</strong>. <a href="mailto:developercifraspraise@gmail.com">Clique aqui para enviar um e-mail →</a></p>
+      </div>
+    </div>
+
+    <div data-lang-content="es">
+      <h1>📄 Términos de Servicio — Chord Book</h1>
+      <p class="updated">Última actualización: 16 de julio de 2026</p>
+      <div class="card">
+        <h2>👋 Aceptación de los términos</h2>
+        <p>Al descargar o usar <strong>Chord Book</strong>, desarrollado por Bruno Abbade, aceptas estos Términos de Servicio. Si no estás de acuerdo, por favor no uses la aplicación.</p>
+
+        <h2>📖 Qué hace la aplicación</h2>
+        <p>Chord Book es una herramienta para organizar, visualizar y transponer cifras, tablaturas y letras para uso personal. La aplicación se ofrece de forma gratuita, mantenida por publicidad.</p>
+
+        <h2>🎵 Contenido que importas</h2>
+        <p>Chord Book te permite importar cifras como archivos de texto o PDF. <strong>Eres el único responsable del contenido que importas</strong> — asegúrate de tener el derecho de usarlo y almacenarlo. Chord Book no aloja, revisa ni distribuye ningún contenido en tu nombre; todo lo que importas permanece en tu propio dispositivo (o, si lo activas, en tu propia cuenta de Google Drive).</p>
+
+        <h2>☁️ Copia de seguridad en Google Drive</h2>
+        <p>La función opcional de copia de seguridad en Google Drive envía una copia de tus datos a tu propia cuenta de Google. Bruno Abbade no tiene acceso a estos datos y no es responsable de su disponibilidad, integridad o continuidad — eso depende de los propios términos de Google y de cómo administras tu cuenta.</p>
+
+        <h2>📢 Publicidad</h2>
+        <p>Chord Book muestra anuncios servidos a través de Google AdMob para ayudar a mantener la aplicación gratuita. El contenido de los anuncios es proporcionado por Google y anunciantes externos, no por el desarrollador.</p>
+
+        <h2>🚫 Sin garantías</h2>
+        <p>Chord Book se ofrece <strong>"tal cual"</strong>, sin garantías de ningún tipo, expresas o implícitas. El desarrollador no garantiza que la aplicación sea ininterrumpida, esté libre de errores, o sea adecuada para un propósito particular.</p>
+
+        <h2>⚖️ Limitación de responsabilidad</h2>
+        <p>En la máxima medida permitida por la ley, Bruno Abbade no es responsable de daños indirectos, incidentales o consecuentes derivados del uso o la imposibilidad de uso de la aplicación — incluyendo la pérdida de datos que el usuario no haya respaldado.</p>
+
+        <h2>📝 Cambios en estos términos</h2>
+        <p>Estos términos pueden actualizarse de vez en cuando. Continuar usando la aplicación después de un cambio significa que aceptas los términos revisados. Las actualizaciones se publicarán en esta página con una nueva fecha de revisión.</p>
+
+        <h2>📬 Contacto</h2>
+        <p>Las preguntas sobre estos términos pueden enviarse a <strong>developercifraspraise@gmail.com</strong>. <a href="mailto:developercifraspraise@gmail.com">Haz clic aquí para enviar un correo →</a></p>
+      </div>
+    </div>
+  </main>
+
+  <script>
+    function setLang(lang) {
+      document.querySelectorAll('[data-lang-content]').forEach(function (el) {
+        el.classList.toggle('active', el.getAttribute('data-lang-content') === lang);
+      });
+      document.querySelectorAll('[data-lang-btn]').forEach(function (btn) {
+        btn.classList.toggle('active', btn.getAttribute('data-lang-btn') === lang);
+      });
+      localStorage.setItem('lang', lang);
+    }
+    document.querySelectorAll('[data-lang-btn]').forEach(function (btn) {
+      btn.addEventListener('click', function () { setLang(btn.getAttribute('data-lang-btn')); });
+    });
+    setLang(localStorage.getItem('lang') || 'en');
+  </script>
+</body>
+</html>
