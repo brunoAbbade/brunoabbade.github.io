@@ -35,32 +35,11 @@
       z-index: 20;
       display: flex;
       align-items: center;
-      justify-content: space-between;
+      justify-content: flex-end;
       padding: 16px 24px;
       backdrop-filter: blur(14px);
       background: rgba(5, 7, 15, 0.72);
       border-bottom: 1px solid var(--border);
-    }
-    .brand {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      font-weight: 700;
-      font-size: 15px;
-      text-decoration: none;
-      letter-spacing: 0.01em;
-    }
-    .brand-mark {
-      width: 30px;
-      height: 30px;
-      border-radius: 9px;
-      background: linear-gradient(135deg, #7d8cff, #4753c9);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 14px;
-      font-weight: 800;
-      flex-shrink: 0;
     }
     .lang-switcher {
       display: flex;
@@ -315,10 +294,6 @@
 </head>
 <body>
   <div class="topbar">
-    <a class="brand" href="#top">
-      <span class="brand-mark">BA</span>
-      <span>Bruno Abbade</span>
-    </a>
     <div class="lang-switcher">
       <button data-lang-btn="en">EN</button>
       <button data-lang-btn="pt">PT</button>
