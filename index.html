@@ -1,629 +1,775 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Bruno Abbade — Apps</title>
+  <meta name="description" content="Apps e jogos para iOS e Android, feitos por Bruno Abbade." />
   <style>
     :root {
-      --bg: #0a0e2e;
-      --bg-card: rgba(255, 255, 255, 0.04);
-      --border: rgba(255, 255, 255, 0.08);
+      --bg: #05070f;
+      --bg-2: #0a0e2e;
+      --bg-card: rgba(255, 255, 255, 0.045);
+      --border: rgba(255, 255, 255, 0.09);
       --text: #f2f3f8;
-      --text-secondary: #aab0c8;
+      --text-secondary: #9aa0bd;
       --accent: #6c7bff;
     }
     * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
     body {
       margin: 0;
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-      background: linear-gradient(180deg, #0a0e2e 0%, #050714 100%);
+      background: var(--bg);
       color: var(--text);
       line-height: 1.5;
+      overflow-x: hidden;
     }
-    header {
-      max-width: 760px;
-      margin: 0 auto;
-      padding: 56px 24px 24px;
-      text-align: center;
-    }
-    header h1 {
-      font-size: 28px;
-      margin: 0 0 8px;
-    }
-    header p {
-      color: var(--text-secondary);
-      margin: 0;
-      font-size: 15px;
-    }
-    main {
-      max-width: 760px;
-      margin: 0 auto;
-      padding: 24px;
-      display: flex;
-      flex-direction: column;
-      gap: 20px;
-    }
-    .app-card {
-      background: var(--bg-card);
-      border: 1px solid var(--border);
-      border-radius: 16px;
-      padding: 24px;
-    }
-    .app-card-header {
+    a { color: inherit; }
+    img { max-width: 100%; display: block; }
+
+    /* ---------- top bar ---------- */
+    .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 20;
       display: flex;
       align-items: center;
-      gap: 14px;
-      margin-bottom: 12px;
+      justify-content: space-between;
+      padding: 16px 24px;
+      backdrop-filter: blur(14px);
+      background: rgba(5, 7, 15, 0.72);
+      border-bottom: 1px solid var(--border);
     }
-    .app-icon {
-      width: 48px;
-      height: 48px;
-      border-radius: 12px;
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: 700;
+      font-size: 15px;
+      text-decoration: none;
+      letter-spacing: 0.01em;
+    }
+    .brand-mark {
+      width: 30px;
+      height: 30px;
+      border-radius: 9px;
+      background: linear-gradient(135deg, #7d8cff, #4753c9);
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 24px;
-      flex-shrink: 0;
-      overflow: hidden;
-    }
-    .app-icon img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-    }
-    .app-name {
-      font-size: 18px;
-      font-weight: 600;
-      margin: 0;
-    }
-    .app-tagline {
-      color: var(--text-secondary);
-      font-size: 13px;
-      margin: 2px 0 0;
-    }
-    .app-description {
       font-size: 14px;
-      color: var(--text-secondary);
-      margin: 0 0 14px;
-    }
-    .features {
-      list-style: none;
-      margin: 0 0 16px;
-      padding: 0;
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-      gap: 8px;
-    }
-    .features li {
-      font-size: 13px;
-      color: var(--text);
-      display: flex;
-      align-items: baseline;
-      gap: 6px;
-    }
-    .features li::before {
-      content: "•";
-      color: var(--accent);
-      font-weight: bold;
-    }
-    .badge {
-      display: inline-block;
-      font-size: 11px;
-      font-weight: 600;
-      padding: 4px 10px;
-      border-radius: 999px;
-      letter-spacing: 0.02em;
-    }
-    .badge-live {
-      background: rgba(70, 200, 120, 0.15);
-      color: #5fd98a;
-    }
-    .badge-dev {
-      background: rgba(255, 196, 70, 0.15);
-      color: #ffd370;
-    }
-    .store-links {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-      margin-top: 4px;
-    }
-    .store-link {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      padding: 8px 16px;
-      border-radius: 10px;
-      background: var(--accent);
-      color: white;
-      text-decoration: none;
-      font-size: 13px;
-      font-weight: 600;
-    }
-    .store-link-android {
-      background: #34a853;
-    }
-    .store-link:hover {
-      opacity: 0.9;
-    }
-    .store-link svg {
-      width: 16px;
-      height: 16px;
-      fill: currentColor;
+      font-weight: 800;
       flex-shrink: 0;
-    }
-    .legal-links {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 16px;
-      margin-top: 14px;
-    }
-    .legal-links a {
-      color: var(--text-secondary);
-      font-size: 12px;
-      text-decoration: none;
-      border-bottom: 1px solid var(--border);
-    }
-    .legal-links a:hover {
-      color: var(--accent);
-    }
-    footer {
-      max-width: 760px;
-      margin: 0 auto;
-      padding: 24px 24px 56px;
-      text-align: center;
-      color: var(--text-secondary);
-      font-size: 12px;
-    }
-    footer a {
-      color: var(--text-secondary);
     }
     .lang-switcher {
-      position: fixed;
-      top: 16px;
-      right: 16px;
       display: flex;
       gap: 4px;
       background: var(--bg-card);
       border: 1px solid var(--border);
       border-radius: 10px;
       padding: 4px;
-      z-index: 10;
-      backdrop-filter: blur(8px);
     }
     .lang-switcher button {
       background: transparent;
       border: none;
       color: var(--text-secondary);
-      padding: 6px 12px;
+      padding: 6px 11px;
       border-radius: 8px;
       font-size: 12px;
       font-weight: 700;
       letter-spacing: 0.03em;
       cursor: pointer;
+      font-family: inherit;
     }
-    .lang-switcher button.active {
+    .lang-switcher button.active { background: var(--accent); color: white; }
+
+    /* ---------- hero ---------- */
+    .hero {
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 76px 24px 40px;
+      text-align: center;
+    }
+    .hero-eyebrow {
+      display: inline-block;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      color: var(--accent);
+      text-transform: uppercase;
+      margin-bottom: 14px;
+    }
+    .hero h1 {
+      font-size: clamp(32px, 5vw, 46px);
+      margin: 0 0 14px;
+      letter-spacing: -0.02em;
+    }
+    .hero p {
+      color: var(--text-secondary);
+      font-size: 16px;
+      max-width: 520px;
+      margin: 0 auto;
+    }
+    .hero-apps-row {
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      margin-top: 32px;
+    }
+    .hero-apps-row a {
+      width: 52px;
+      height: 52px;
+      border-radius: 14px;
+      overflow: hidden;
+      border: 1px solid var(--border);
+      transition: transform 0.15s ease;
+    }
+    .hero-apps-row a:hover { transform: translateY(-3px); }
+    .hero-apps-row img { width: 100%; height: 100%; object-fit: cover; }
+
+    /* ---------- app showcase ---------- */
+    main { max-width: 1080px; margin: 0 auto; padding: 20px 24px 40px; }
+
+    .showcase {
+      display: grid;
+      grid-template-columns: 320px 1fr;
+      gap: 56px;
+      align-items: center;
+      padding: 64px 0;
+      border-top: 1px solid var(--border);
+    }
+    .showcase:first-child { border-top: none; }
+    .showcase.reverse { grid-template-columns: 1fr 320px; }
+    .showcase.reverse .showcase-devices { order: 2; }
+    .showcase.reverse .showcase-content { order: 1; }
+
+    .showcase-devices {
+      position: relative;
+      display: flex;
+      justify-content: center;
+      padding: 20px 0;
+    }
+
+    .device-frame {
+      position: relative;
+      background: #14162a;
+      border-radius: 34px;
+      padding: 9px;
+      box-shadow: 0 30px 60px -20px rgba(0, 0, 0, 0.65), 0 0 0 1px rgba(255, 255, 255, 0.05);
+    }
+    .device-frame.phone { width: 210px; aspect-ratio: 9 / 19.5; z-index: 2; }
+    .device-frame.tablet {
+      width: 260px;
+      aspect-ratio: 3 / 4;
+      border-radius: 26px;
+      position: absolute;
+      right: -18px;
+      bottom: -6px;
+      z-index: 1;
+      opacity: 0.88;
+      filter: brightness(0.72) saturate(0.9);
+    }
+    .device-frame .screen {
+      width: 100%;
+      height: 100%;
+      border-radius: 25px;
+      overflow: hidden;
+      background: #000;
+      position: relative;
+    }
+    .device-frame.tablet .screen { border-radius: 18px; }
+    .device-frame .screen img,
+    .device-frame .screen video {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    .device-frame.phone::before {
+      content: "";
+      position: absolute;
+      top: 9px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 72px;
+      height: 18px;
+      background: #14162a;
+      border-radius: 0 0 12px 12px;
+      z-index: 3;
+    }
+    .screen.placeholder {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--placeholder-gradient, linear-gradient(160deg, #333, #111));
+    }
+    .screen.placeholder img {
+      width: 38%;
+      height: auto;
+      border-radius: 22%;
+      box-shadow: 0 14px 30px rgba(0, 0, 0, 0.4);
+    }
+
+    .showcase-content { min-width: 0; }
+    .app-header {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin-bottom: 14px;
+    }
+    .app-icon {
+      width: 46px;
+      height: 46px;
+      border-radius: 12px;
+      overflow: hidden;
+      flex-shrink: 0;
+      border: 1px solid var(--border);
+    }
+    .app-name { font-size: 22px; font-weight: 700; margin: 0; letter-spacing: -0.01em; }
+    .app-tagline { color: var(--text-secondary); font-size: 13.5px; margin: 2px 0 0; }
+    .app-description {
+      font-size: 15px;
+      color: var(--text-secondary);
+      margin: 0 0 18px;
+      max-width: 460px;
+    }
+    .features {
+      list-style: none;
+      margin: 0 0 20px;
+      padding: 0;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+      gap: 9px;
+      max-width: 500px;
+    }
+    .features li {
+      font-size: 13.5px;
+      color: var(--text);
+      display: flex;
+      align-items: baseline;
+      gap: 7px;
+    }
+    .features li::before { content: "•"; color: var(--accent); font-weight: bold; }
+    .badge-row { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 14px; }
+    .badge {
+      display: inline-block;
+      font-size: 10.5px;
+      font-weight: 700;
+      padding: 5px 11px;
+      border-radius: 999px;
+      letter-spacing: 0.03em;
+    }
+    .badge-live { background: rgba(70, 200, 120, 0.15); color: #5fd98a; }
+    .badge-dev { background: rgba(255, 196, 70, 0.15); color: #ffd370; }
+    .store-links { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 4px; }
+    .store-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 9px 16px;
+      border-radius: 10px;
       background: var(--accent);
       color: white;
+      text-decoration: none;
+      font-size: 13px;
+      font-weight: 600;
     }
-    [data-lang-content] { display: none; }
-    [data-lang-content].active { display: block; }
+    .store-link-android { background: #34a853; }
+    .store-link:hover { opacity: 0.9; }
+    .legal-links { display: flex; flex-wrap: wrap; gap: 16px; margin-top: 16px; }
+    .legal-links a {
+      color: var(--text-secondary);
+      font-size: 12px;
+      text-decoration: none;
+      border-bottom: 1px solid var(--border);
+    }
+    .legal-links a:hover { color: var(--accent); }
+
+    @media (max-width: 760px) {
+      .showcase, .showcase.reverse {
+        grid-template-columns: 1fr;
+        gap: 32px;
+        text-align: center;
+        padding: 44px 0;
+      }
+      .showcase.reverse .showcase-devices,
+      .showcase.reverse .showcase-content { order: initial; }
+      .app-header { justify-content: center; }
+      .app-description, .features { margin-left: auto; margin-right: auto; }
+      .features { text-align: left; }
+      .store-links, .badge-row, .legal-links { justify-content: center; }
+      .device-frame.tablet { right: 4px; }
+    }
+
+    footer {
+      max-width: 1080px;
+      margin: 0 auto;
+      padding: 32px 24px 56px;
+      text-align: center;
+      color: var(--text-secondary);
+      font-size: 12px;
+      border-top: 1px solid var(--border);
+    }
+    footer a { color: var(--text-secondary); }
   </style>
 </head>
 <body>
-  <div class="lang-switcher">
-    <button data-lang-btn="en">EN</button>
-    <button data-lang-btn="pt">PT</button>
-    <button data-lang-btn="es">ES</button>
+  <div class="topbar">
+    <a class="brand" href="#top">
+      <span class="brand-mark">BA</span>
+      <span>Bruno Abbade</span>
+    </a>
+    <div class="lang-switcher">
+      <button data-lang-btn="en">EN</button>
+      <button data-lang-btn="pt">PT</button>
+      <button data-lang-btn="es">ES</button>
+    </div>
   </div>
 
-  <!-- ===== ENGLISH ===== -->
-  <div data-lang-content="en">
-    <header>
-      <p>Apps and games for iOS and Android</p>
-    </header>
-
-    <main>
-      <section class="app-card">
-        <div class="app-card-header">
-          <div class="app-icon"><img src="icons/cifras-praise.png" alt="Renascer Praise Cifras icon" /></div>
-          <div>
-            <p class="app-name">Renascer Praise Cifras</p>
-            <p class="app-tagline">Chords for praise and worship</p>
-          </div>
-        </div>
-        <p class="app-description">
-          Music chord app with over 200 hymns and praises, designed for musicians and worship groups. Works offline after the first sync.
-        </p>
-        <ul class="features">
-          <li>Over 200 chords with key and tabs</li>
-          <li>Real-time key transposition</li>
-          <li>Custom repertoire with reordering</li>
-          <li>Instant search by title</li>
-          <li>Light/dark mode and background colors</li>
-          <li>Auto-scroll with adjustable speed</li>
-          <li>Portuguese, English and Spanish</li>
-          <li>Works without internet after first use</li>
-        </ul>
-        <span class="badge badge-live">AVAILABLE ON APP STORE AND PLAY STORE</span>
-        <br />
-        <div class="store-links">
-          <a class="store-link" href="https://apps.apple.com/br/app/renascer-praise-cifras/id6780117518"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12.152 6.896c-.948 0-2.415-1.078-3.96-1.04-2.04.027-3.91 1.183-4.961 3.014-2.117 3.675-.546 9.103 1.519 12.09 1.013 1.454 2.208 3.09 3.792 3.039 1.52-.065 2.09-.987 3.935-.987 1.831 0 2.35.987 3.96.948 1.637-.026 2.676-1.48 3.676-2.948 1.156-1.688 1.636-3.325 1.662-3.415-.039-.013-3.182-1.221-3.22-4.857-.026-3.04 2.48-4.494 2.597-4.559-1.429-2.09-3.623-2.324-4.39-2.376-2-.156-3.675 1.09-4.61 1.09zM15.53 3.83c.843-1.012 1.4-2.427 1.245-3.83-1.207.052-2.662.805-3.532 1.818-.78.896-1.454 2.338-1.273 3.714 1.338.104 2.715-.688 3.559-1.701"/></svg>Download →</a>
-          <a class="store-link store-link-android" href="https://play.google.com/store/apps/details?id=com.boliveira.cifraspraise&hl=pt_BR"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M22.018 13.298l-3.919 2.218-3.515-3.493 3.543-3.521 3.891 2.202a1.49 1.49 0 0 1 0 2.594zM1.337.924a1.486 1.486 0 0 0-.112.568v21.017c0 .217.045.419.124.6l11.155-11.087L1.337.924zm12.207 10.065l3.258-3.238L3.45.195a1.466 1.466 0 0 0-.946-.179l11.04 10.973zm0 2.067l-11 10.933c.298.036.612-.016.906-.183l13.324-7.54-3.23-3.21z"/></svg>Download →</a>
-        </div>
-        <div class="legal-links">
-          <a href="cifras-praise-privacy.html">Privacy Policy</a>
-          <a href="cifras-praise-support.html">Support</a>
-        </div>
-      </section>
-
-      <section class="app-card">
-        <div class="app-card-header">
-          <div class="app-icon"><img src="icons/merge-rise.png" alt="Merge Rise icon" /></div>
-          <div>
-            <p class="app-name">Merge Rise</p>
-            <p class="app-tagline">Merge puzzle with level progression</p>
-          </div>
-        </div>
-        <p class="app-description">
-          Reinvented merge/2048 style puzzle game, with level objectives and match history to track your progress.
-        </p>
-        <ul class="features">
-          <li>Reinvented classic merge mechanic</li>
-          <li>Level progression with objectives</li>
-          <li>Match history</li>
-          <li>Sound effects and settings</li>
-        </ul>
-        <span class="badge badge-live">AVAILABLE ON APP STORE AND PLAY STORE</span>
-        <br />
-        <div class="store-links">
-          <a class="store-link" href="https://apps.apple.com/br/app/merge-rise/id6781752965"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12.152 6.896c-.948 0-2.415-1.078-3.96-1.04-2.04.027-3.91 1.183-4.961 3.014-2.117 3.675-.546 9.103 1.519 12.09 1.013 1.454 2.208 3.09 3.792 3.039 1.52-.065 2.09-.987 3.935-.987 1.831 0 2.35.987 3.96.948 1.637-.026 2.676-1.48 3.676-2.948 1.156-1.688 1.636-3.325 1.662-3.415-.039-.013-3.182-1.221-3.22-4.857-.026-3.04 2.48-4.494 2.597-4.559-1.429-2.09-3.623-2.324-4.39-2.376-2-.156-3.675 1.09-4.61 1.09zM15.53 3.83c.843-1.012 1.4-2.427 1.245-3.83-1.207.052-2.662.805-3.532 1.818-.78.896-1.454 2.338-1.273 3.714 1.338.104 2.715-.688 3.559-1.701"/></svg>Download →</a>
-          <a class="store-link store-link-android" href="https://play.google.com/store/apps/details?id=com.brunoabbade.merge_rise_game&hl=pt_BR"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M22.018 13.298l-3.919 2.218-3.515-3.493 3.543-3.521 3.891 2.202a1.49 1.49 0 0 1 0 2.594zM1.337.924a1.486 1.486 0 0 0-.112.568v21.017c0 .217.045.419.124.6l11.155-11.087L1.337.924zm12.207 10.065l3.258-3.238L3.45.195a1.466 1.466 0 0 0-.946-.179l11.04 10.973zm0 2.067l-11 10.933c.298.036.612-.016.906-.183l13.324-7.54-3.23-3.21z"/></svg>Download →</a>
-        </div>
-        <div class="legal-links">
-          <a href="merge-rise-privacy.html">Privacy Policy</a>
-          <a href="merge-rise-support.html">Support</a>
-        </div>
-      </section>
-
-      <section class="app-card">
-        <div class="app-card-header">
-          <div class="app-icon"><img src="icons/snap-puzzle.png" alt="Snap Puzzle icon" /></div>
-          <div>
-            <p class="app-name">Snap Puzzle</p>
-            <p class="app-tagline">Jigsaw puzzle with your own photos</p>
-          </div>
-        </div>
-        <p class="app-description">
-          Turn any photo from your gallery into a puzzle and assemble it at your own pace, with multiple difficulty levels.
-        </p>
-        <ul class="features">
-          <li>Use any photo as a puzzle</li>
-          <li>Multiple difficulty levels</li>
-          <li>Progress saved automatically</li>
-        </ul>
-        <span class="badge badge-live">AVAILABLE ON APP STORE AND PLAY STORE</span>
-        <br />
-        <div class="store-links">
-          <a class="store-link" href="https://apps.apple.com/br/app/snap-puzzle/id6782507078"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12.152 6.896c-.948 0-2.415-1.078-3.96-1.04-2.04.027-3.91 1.183-4.961 3.014-2.117 3.675-.546 9.103 1.519 12.09 1.013 1.454 2.208 3.09 3.792 3.039 1.52-.065 2.09-.987 3.935-.987 1.831 0 2.35.987 3.96.948 1.637-.026 2.676-1.48 3.676-2.948 1.156-1.688 1.636-3.325 1.662-3.415-.039-.013-3.182-1.221-3.22-4.857-.026-3.04 2.48-4.494 2.597-4.559-1.429-2.09-3.623-2.324-4.39-2.376-2-.156-3.675 1.09-4.61 1.09zM15.53 3.83c.843-1.012 1.4-2.427 1.245-3.83-1.207.052-2.662.805-3.532 1.818-.78.896-1.454 2.338-1.273 3.714 1.338.104 2.715-.688 3.559-1.701"/></svg>Download →</a>
-          <a class="store-link store-link-android" href="https://play.google.com/store/apps/details?id=com.babbade.snap_puzzle&hl=pt_BR"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M22.018 13.298l-3.919 2.218-3.515-3.493 3.543-3.521 3.891 2.202a1.49 1.49 0 0 1 0 2.594zM1.337.924a1.486 1.486 0 0 0-.112.568v21.017c0 .217.045.419.124.6l11.155-11.087L1.337.924zm12.207 10.065l3.258-3.238L3.45.195a1.466 1.466 0 0 0-.946-.179l11.04 10.973zm0 2.067l-11 10.933c.298.036.612-.016.906-.183l13.324-7.54-3.23-3.21z"/></svg>Download →</a>
-        </div>
-        <div class="legal-links">
-          <a href="snap-puzzle-privacy.html">Privacy Policy</a>
-          <a href="snap-puzzle-support.html">Support</a>
-        </div>
-      </section>
-
-      <section class="app-card">
-        <div class="app-card-header">
-          <div class="app-icon"><img src="icons/chord-book.png" alt="Chord Book icon" /></div>
-          <div>
-            <p class="app-name">Chord Book</p>
-            <p class="app-tagline">Chords and tabs for musicians</p>
-          </div>
-        </div>
-        <p class="app-description">
-          Organize and access your favorite chord charts with chord support and key transposition.
-        </p>
-        <ul class="features">
-          <li>Locally saved chords</li>
-          <li>Key transposition</li>
-          <li>Light/dark mode</li>
-        </ul>
-        <span class="badge badge-live">AVAILABLE ON APP STORE AND PLAY STORE</span>
-        <br />
-        <div class="store-links">
-          <a class="store-link" href="https://apps.apple.com/br/app/chord-book/id6785742205"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12.152 6.896c-.948 0-2.415-1.078-3.96-1.04-2.04.027-3.91 1.183-4.961 3.014-2.117 3.675-.546 9.103 1.519 12.09 1.013 1.454 2.208 3.09 3.792 3.039 1.52-.065 2.09-.987 3.935-.987 1.831 0 2.35.987 3.96.948 1.637-.026 2.676-1.48 3.676-2.948 1.156-1.688 1.636-3.325 1.662-3.415-.039-.013-3.182-1.221-3.22-4.857-.026-3.04 2.48-4.494 2.597-4.559-1.429-2.09-3.623-2.324-4.39-2.376-2-.156-3.675 1.09-4.61 1.09zM15.53 3.83c.843-1.012 1.4-2.427 1.245-3.83-1.207.052-2.662.805-3.532 1.818-.78.896-1.454 2.338-1.273 3.714 1.338.104 2.715-.688 3.559-1.701"/></svg>Download →</a>
-          <a class="store-link store-link-android" href="https://play.google.com/store/apps/details?id=com.boliveira.chordbook.chord_book_app&hl=pt_BR"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M22.018 13.298l-3.919 2.218-3.515-3.493 3.543-3.521 3.891 2.202a1.49 1.49 0 0 1 0 2.594zM1.337.924a1.486 1.486 0 0 0-.112.568v21.017c0 .217.045.419.124.6l11.155-11.087L1.337.924zm12.207 10.065l3.258-3.238L3.45.195a1.466 1.466 0 0 0-.946-.179l11.04 10.973zm0 2.067l-11 10.933c.298.036.612-.016.906-.183l13.324-7.54-3.23-3.21z"/></svg>Download →</a>
-        </div>
-        <div class="legal-links">
-          <a href="chord-book-privacy.html">Privacy Policy</a>
-          <a href="chord-book-support.html">Support</a>
-        </div>
-      </section>
-    </main>
-
-    <footer>
-      <p>© 2026 Bruno Augusto Abbade Oliveira</p>
-    </footer>
+  <div class="hero" id="top">
+    <span class="hero-eyebrow" data-t="eyebrow"></span>
+    <h1 data-t="heroTitle"></h1>
+    <p data-t="heroSubtitle"></p>
+    <div class="hero-apps-row" id="hero-apps"></div>
   </div>
 
-  <!-- ===== PORTUGUÊS ===== -->
-  <div data-lang-content="pt">
-    <header>
-      <p>Apps e jogos para iOS e Android</p>
-    </header>
+  <main id="app-list"></main>
 
-    <main>
-      <section class="app-card">
-        <div class="app-card-header">
-          <div class="app-icon"><img src="icons/cifras-praise.png" alt="Ícone Renascer Praise Cifras" /></div>
-          <div>
-            <p class="app-name">Renascer Praise Cifras</p>
-            <p class="app-tagline">Cifras para louvor e adoração</p>
-          </div>
-        </div>
-        <p class="app-description">
-          App de cifras musicais com mais de 200 hinos e louvores, pensado para músicos e grupos de adoração. Funciona offline depois da primeira sincronização.
-        </p>
-        <ul class="features">
-          <li>Mais de 200 cifras com tom e acordes</li>
-          <li>Transposição de tom em tempo real</li>
-          <li>Repertório personalizado com reordenação</li>
-          <li>Busca instantânea por título</li>
-          <li>Modo claro/escuro e cores de fundo</li>
-          <li>Auto-scroll com velocidade ajustável</li>
-          <li>Português, inglês e espanhol</li>
-          <li>Funciona sem internet após o primeiro uso</li>
-        </ul>
-        <span class="badge badge-live">DISPONÍVEL NA APP STORE E PLAY STORE</span>
-        <br />
-        <div class="store-links">
-          <a class="store-link" href="https://apps.apple.com/br/app/renascer-praise-cifras/id6780117518"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12.152 6.896c-.948 0-2.415-1.078-3.96-1.04-2.04.027-3.91 1.183-4.961 3.014-2.117 3.675-.546 9.103 1.519 12.09 1.013 1.454 2.208 3.09 3.792 3.039 1.52-.065 2.09-.987 3.935-.987 1.831 0 2.35.987 3.96.948 1.637-.026 2.676-1.48 3.676-2.948 1.156-1.688 1.636-3.325 1.662-3.415-.039-.013-3.182-1.221-3.22-4.857-.026-3.04 2.48-4.494 2.597-4.559-1.429-2.09-3.623-2.324-4.39-2.376-2-.156-3.675 1.09-4.61 1.09zM15.53 3.83c.843-1.012 1.4-2.427 1.245-3.83-1.207.052-2.662.805-3.532 1.818-.78.896-1.454 2.338-1.273 3.714 1.338.104 2.715-.688 3.559-1.701"/></svg>Baixar →</a>
-          <a class="store-link store-link-android" href="https://play.google.com/store/apps/details?id=com.boliveira.cifraspraise&hl=pt_BR"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M22.018 13.298l-3.919 2.218-3.515-3.493 3.543-3.521 3.891 2.202a1.49 1.49 0 0 1 0 2.594zM1.337.924a1.486 1.486 0 0 0-.112.568v21.017c0 .217.045.419.124.6l11.155-11.087L1.337.924zm12.207 10.065l3.258-3.238L3.45.195a1.466 1.466 0 0 0-.946-.179l11.04 10.973zm0 2.067l-11 10.933c.298.036.612-.016.906-.183l13.324-7.54-3.23-3.21z"/></svg>Baixar →</a>
-        </div>
-        <div class="legal-links">
-          <a href="cifras-praise-privacy.html">Política de Privacidade</a>
-          <a href="cifras-praise-support.html">Suporte</a>
-        </div>
-      </section>
-
-      <section class="app-card">
-        <div class="app-card-header">
-          <div class="app-icon"><img src="icons/merge-rise.png" alt="Ícone Merge Rise" /></div>
-          <div>
-            <p class="app-name">Merge Rise</p>
-            <p class="app-tagline">Puzzle de fusão com progressão por níveis</p>
-          </div>
-        </div>
-        <p class="app-description">
-          Jogo de puzzle estilo merge/2048 reinventado, com objetivos por nível e histórico de partidas para acompanhar sua evolução.
-        </p>
-        <ul class="features">
-          <li>Mecânica de fusão clássica reinventada</li>
-          <li>Progressão por níveis com objetivos</li>
-          <li>Histórico de partidas</li>
-          <li>Efeitos sonoros e configurações</li>
-        </ul>
-        <span class="badge badge-live">DISPONÍVEL NA APP STORE E PLAY STORE</span>
-        <br />
-        <div class="store-links">
-          <a class="store-link" href="https://apps.apple.com/br/app/merge-rise/id6781752965"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12.152 6.896c-.948 0-2.415-1.078-3.96-1.04-2.04.027-3.91 1.183-4.961 3.014-2.117 3.675-.546 9.103 1.519 12.09 1.013 1.454 2.208 3.09 3.792 3.039 1.52-.065 2.09-.987 3.935-.987 1.831 0 2.35.987 3.96.948 1.637-.026 2.676-1.48 3.676-2.948 1.156-1.688 1.636-3.325 1.662-3.415-.039-.013-3.182-1.221-3.22-4.857-.026-3.04 2.48-4.494 2.597-4.559-1.429-2.09-3.623-2.324-4.39-2.376-2-.156-3.675 1.09-4.61 1.09zM15.53 3.83c.843-1.012 1.4-2.427 1.245-3.83-1.207.052-2.662.805-3.532 1.818-.78.896-1.454 2.338-1.273 3.714 1.338.104 2.715-.688 3.559-1.701"/></svg>Baixar →</a>
-          <a class="store-link store-link-android" href="https://play.google.com/store/apps/details?id=com.brunoabbade.merge_rise_game&hl=pt_BR"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M22.018 13.298l-3.919 2.218-3.515-3.493 3.543-3.521 3.891 2.202a1.49 1.49 0 0 1 0 2.594zM1.337.924a1.486 1.486 0 0 0-.112.568v21.017c0 .217.045.419.124.6l11.155-11.087L1.337.924zm12.207 10.065l3.258-3.238L3.45.195a1.466 1.466 0 0 0-.946-.179l11.04 10.973zm0 2.067l-11 10.933c.298.036.612-.016.906-.183l13.324-7.54-3.23-3.21z"/></svg>Baixar →</a>
-        </div>
-        <div class="legal-links">
-          <a href="merge-rise-privacy.html">Política de Privacidade</a>
-          <a href="merge-rise-support.html">Suporte</a>
-        </div>
-      </section>
-
-      <section class="app-card">
-        <div class="app-card-header">
-          <div class="app-icon"><img src="icons/snap-puzzle.png" alt="Ícone Snap Puzzle" /></div>
-          <div>
-            <p class="app-name">Snap Puzzle</p>
-            <p class="app-tagline">Quebra-cabeça com suas próprias fotos</p>
-          </div>
-        </div>
-        <p class="app-description">
-          Transforme qualquer foto da sua galeria em um quebra-cabeça e monte no seu próprio ritmo, com vários níveis de dificuldade.
-        </p>
-        <ul class="features">
-          <li>Use qualquer foto como puzzle</li>
-          <li>Vários níveis de dificuldade</li>
-          <li>Progresso salvo automaticamente</li>
-        </ul>
-        <span class="badge badge-live">DISPONÍVEL NA APP STORE E PLAY STORE</span>
-        <br />
-        <div class="store-links">
-          <a class="store-link" href="https://apps.apple.com/br/app/snap-puzzle/id6782507078"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12.152 6.896c-.948 0-2.415-1.078-3.96-1.04-2.04.027-3.91 1.183-4.961 3.014-2.117 3.675-.546 9.103 1.519 12.09 1.013 1.454 2.208 3.09 3.792 3.039 1.52-.065 2.09-.987 3.935-.987 1.831 0 2.35.987 3.96.948 1.637-.026 2.676-1.48 3.676-2.948 1.156-1.688 1.636-3.325 1.662-3.415-.039-.013-3.182-1.221-3.22-4.857-.026-3.04 2.48-4.494 2.597-4.559-1.429-2.09-3.623-2.324-4.39-2.376-2-.156-3.675 1.09-4.61 1.09zM15.53 3.83c.843-1.012 1.4-2.427 1.245-3.83-1.207.052-2.662.805-3.532 1.818-.78.896-1.454 2.338-1.273 3.714 1.338.104 2.715-.688 3.559-1.701"/></svg>Baixar →</a>
-          <a class="store-link store-link-android" href="https://play.google.com/store/apps/details?id=com.babbade.snap_puzzle&hl=pt_BR"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M22.018 13.298l-3.919 2.218-3.515-3.493 3.543-3.521 3.891 2.202a1.49 1.49 0 0 1 0 2.594zM1.337.924a1.486 1.486 0 0 0-.112.568v21.017c0 .217.045.419.124.6l11.155-11.087L1.337.924zm12.207 10.065l3.258-3.238L3.45.195a1.466 1.466 0 0 0-.946-.179l11.04 10.973zm0 2.067l-11 10.933c.298.036.612-.016.906-.183l13.324-7.54-3.23-3.21z"/></svg>Baixar →</a>
-        </div>
-        <div class="legal-links">
-          <a href="snap-puzzle-privacy.html">Política de Privacidade</a>
-          <a href="snap-puzzle-support.html">Suporte</a>
-        </div>
-      </section>
-
-      <section class="app-card">
-        <div class="app-card-header">
-          <div class="app-icon"><img src="icons/chord-book.png" alt="Ícone Chord Book" /></div>
-          <div>
-            <p class="app-name">Chord Book</p>
-            <p class="app-tagline">Cifras e acordes para músicos</p>
-          </div>
-        </div>
-        <p class="app-description">
-          Organize e acesse suas cifras favoritas com suporte a acordes e transposição de tom.
-        </p>
-        <ul class="features">
-          <li>Cifras salvas localmente</li>
-          <li>Transposição de tom</li>
-          <li>Modo claro/escuro</li>
-        </ul>
-        <span class="badge badge-live">DISPONÍVEL NA APP STORE E PLAY STORE</span>
-        <br />
-        <div class="store-links">
-          <a class="store-link" href="https://apps.apple.com/br/app/chord-book/id6785742205"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12.152 6.896c-.948 0-2.415-1.078-3.96-1.04-2.04.027-3.91 1.183-4.961 3.014-2.117 3.675-.546 9.103 1.519 12.09 1.013 1.454 2.208 3.09 3.792 3.039 1.52-.065 2.09-.987 3.935-.987 1.831 0 2.35.987 3.96.948 1.637-.026 2.676-1.48 3.676-2.948 1.156-1.688 1.636-3.325 1.662-3.415-.039-.013-3.182-1.221-3.22-4.857-.026-3.04 2.48-4.494 2.597-4.559-1.429-2.09-3.623-2.324-4.39-2.376-2-.156-3.675 1.09-4.61 1.09zM15.53 3.83c.843-1.012 1.4-2.427 1.245-3.83-1.207.052-2.662.805-3.532 1.818-.78.896-1.454 2.338-1.273 3.714 1.338.104 2.715-.688 3.559-1.701"/></svg>Baixar →</a>
-          <a class="store-link store-link-android" href="https://play.google.com/store/apps/details?id=com.boliveira.chordbook.chord_book_app&hl=pt_BR"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M22.018 13.298l-3.919 2.218-3.515-3.493 3.543-3.521 3.891 2.202a1.49 1.49 0 0 1 0 2.594zM1.337.924a1.486 1.486 0 0 0-.112.568v21.017c0 .217.045.419.124.6l11.155-11.087L1.337.924zm12.207 10.065l3.258-3.238L3.45.195a1.466 1.466 0 0 0-.946-.179l11.04 10.973zm0 2.067l-11 10.933c.298.036.612-.016.906-.183l13.324-7.54-3.23-3.21z"/></svg>Baixar →</a>
-        </div>
-        <div class="legal-links">
-          <a href="chord-book-privacy.html">Política de Privacidade</a>
-          <a href="chord-book-support.html">Suporte</a>
-        </div>
-      </section>
-    </main>
-
-    <footer>
-      <p>© 2026 Bruno Augusto Abbade Oliveira</p>
-    </footer>
-  </div>
-
-  <!-- ===== ESPAÑOL ===== -->
-  <div data-lang-content="es">
-    <header>
-      <p>Apps y juegos para iOS y Android</p>
-    </header>
-
-    <main>
-      <section class="app-card">
-        <div class="app-card-header">
-          <div class="app-icon"><img src="icons/cifras-praise.png" alt="Ícono Renascer Praise Cifras" /></div>
-          <div>
-            <p class="app-name">Renascer Praise Cifras</p>
-            <p class="app-tagline">Cifras de alabanza y adoración</p>
-          </div>
-        </div>
-        <p class="app-description">
-          App de cifras musicales con más de 200 himnos y alabanzas, pensada para músicos y grupos de adoración. Funciona sin internet tras la primera sincronización.
-        </p>
-        <ul class="features">
-          <li>Más de 200 cifras con tono y acordes</li>
-          <li>Transposición de tono en tiempo real</li>
-          <li>Repertorio personalizado con reordenación</li>
-          <li>Búsqueda instantánea por título</li>
-          <li>Modo claro/oscuro y colores de fondo</li>
-          <li>Auto-scroll con velocidad ajustable</li>
-          <li>Portugués, inglés y español</li>
-          <li>Funciona sin internet tras el primer uso</li>
-        </ul>
-        <span class="badge badge-live">DISPONIBLE EN APP STORE Y PLAY STORE</span>
-        <br />
-        <div class="store-links">
-          <a class="store-link" href="https://apps.apple.com/br/app/renascer-praise-cifras/id6780117518"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12.152 6.896c-.948 0-2.415-1.078-3.96-1.04-2.04.027-3.91 1.183-4.961 3.014-2.117 3.675-.546 9.103 1.519 12.09 1.013 1.454 2.208 3.09 3.792 3.039 1.52-.065 2.09-.987 3.935-.987 1.831 0 2.35.987 3.96.948 1.637-.026 2.676-1.48 3.676-2.948 1.156-1.688 1.636-3.325 1.662-3.415-.039-.013-3.182-1.221-3.22-4.857-.026-3.04 2.48-4.494 2.597-4.559-1.429-2.09-3.623-2.324-4.39-2.376-2-.156-3.675 1.09-4.61 1.09zM15.53 3.83c.843-1.012 1.4-2.427 1.245-3.83-1.207.052-2.662.805-3.532 1.818-.78.896-1.454 2.338-1.273 3.714 1.338.104 2.715-.688 3.559-1.701"/></svg>Descargar →</a>
-          <a class="store-link store-link-android" href="https://play.google.com/store/apps/details?id=com.boliveira.cifraspraise&hl=pt_BR"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M22.018 13.298l-3.919 2.218-3.515-3.493 3.543-3.521 3.891 2.202a1.49 1.49 0 0 1 0 2.594zM1.337.924a1.486 1.486 0 0 0-.112.568v21.017c0 .217.045.419.124.6l11.155-11.087L1.337.924zm12.207 10.065l3.258-3.238L3.45.195a1.466 1.466 0 0 0-.946-.179l11.04 10.973zm0 2.067l-11 10.933c.298.036.612-.016.906-.183l13.324-7.54-3.23-3.21z"/></svg>Descargar →</a>
-        </div>
-        <div class="legal-links">
-          <a href="cifras-praise-privacy.html">Política de Privacidad</a>
-          <a href="cifras-praise-support.html">Soporte</a>
-        </div>
-      </section>
-
-      <section class="app-card">
-        <div class="app-card-header">
-          <div class="app-icon"><img src="icons/merge-rise.png" alt="Ícono Merge Rise" /></div>
-          <div>
-            <p class="app-name">Merge Rise</p>
-            <p class="app-tagline">Puzzle de fusión con progresión por niveles</p>
-          </div>
-        </div>
-        <p class="app-description">
-          Juego de puzzle estilo merge/2048 reinventado, con objetivos por nivel e historial de partidas para seguir tu evolución.
-        </p>
-        <ul class="features">
-          <li>Mecánica de fusión clásica reinventada</li>
-          <li>Progresión por niveles con objetivos</li>
-          <li>Historial de partidas</li>
-          <li>Efectos de sonido y configuración</li>
-        </ul>
-        <span class="badge badge-live">DISPONIBLE EN APP STORE Y PLAY STORE</span>
-        <br />
-        <div class="store-links">
-          <a class="store-link" href="https://apps.apple.com/br/app/merge-rise/id6781752965"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12.152 6.896c-.948 0-2.415-1.078-3.96-1.04-2.04.027-3.91 1.183-4.961 3.014-2.117 3.675-.546 9.103 1.519 12.09 1.013 1.454 2.208 3.09 3.792 3.039 1.52-.065 2.09-.987 3.935-.987 1.831 0 2.35.987 3.96.948 1.637-.026 2.676-1.48 3.676-2.948 1.156-1.688 1.636-3.325 1.662-3.415-.039-.013-3.182-1.221-3.22-4.857-.026-3.04 2.48-4.494 2.597-4.559-1.429-2.09-3.623-2.324-4.39-2.376-2-.156-3.675 1.09-4.61 1.09zM15.53 3.83c.843-1.012 1.4-2.427 1.245-3.83-1.207.052-2.662.805-3.532 1.818-.78.896-1.454 2.338-1.273 3.714 1.338.104 2.715-.688 3.559-1.701"/></svg>Descargar →</a>
-          <a class="store-link store-link-android" href="https://play.google.com/store/apps/details?id=com.brunoabbade.merge_rise_game&hl=pt_BR"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M22.018 13.298l-3.919 2.218-3.515-3.493 3.543-3.521 3.891 2.202a1.49 1.49 0 0 1 0 2.594zM1.337.924a1.486 1.486 0 0 0-.112.568v21.017c0 .217.045.419.124.6l11.155-11.087L1.337.924zm12.207 10.065l3.258-3.238L3.45.195a1.466 1.466 0 0 0-.946-.179l11.04 10.973zm0 2.067l-11 10.933c.298.036.612-.016.906-.183l13.324-7.54-3.23-3.21z"/></svg>Descargar →</a>
-        </div>
-        <div class="legal-links">
-          <a href="merge-rise-privacy.html">Política de Privacidad</a>
-          <a href="merge-rise-support.html">Soporte</a>
-        </div>
-      </section>
-
-      <section class="app-card">
-        <div class="app-card-header">
-          <div class="app-icon"><img src="icons/snap-puzzle.png" alt="Ícono Snap Puzzle" /></div>
-          <div>
-            <p class="app-name">Snap Puzzle</p>
-            <p class="app-tagline">Rompecabezas con tus propias fotos</p>
-          </div>
-        </div>
-        <p class="app-description">
-          Convierte cualquier foto de tu galería en un rompecabezas y arma el puzzle a tu propio ritmo, con varios niveles de dificultad.
-        </p>
-        <ul class="features">
-          <li>Usa cualquier foto como puzzle</li>
-          <li>Varios niveles de dificultad</li>
-          <li>Progreso guardado automáticamente</li>
-        </ul>
-        <span class="badge badge-live">DISPONIBLE EN APP STORE Y PLAY STORE</span>
-        <br />
-        <div class="store-links">
-          <a class="store-link" href="https://apps.apple.com/br/app/snap-puzzle/id6782507078"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12.152 6.896c-.948 0-2.415-1.078-3.96-1.04-2.04.027-3.91 1.183-4.961 3.014-2.117 3.675-.546 9.103 1.519 12.09 1.013 1.454 2.208 3.09 3.792 3.039 1.52-.065 2.09-.987 3.935-.987 1.831 0 2.35.987 3.96.948 1.637-.026 2.676-1.48 3.676-2.948 1.156-1.688 1.636-3.325 1.662-3.415-.039-.013-3.182-1.221-3.22-4.857-.026-3.04 2.48-4.494 2.597-4.559-1.429-2.09-3.623-2.324-4.39-2.376-2-.156-3.675 1.09-4.61 1.09zM15.53 3.83c.843-1.012 1.4-2.427 1.245-3.83-1.207.052-2.662.805-3.532 1.818-.78.896-1.454 2.338-1.273 3.714 1.338.104 2.715-.688 3.559-1.701"/></svg>Descargar →</a>
-          <a class="store-link store-link-android" href="https://play.google.com/store/apps/details?id=com.babbade.snap_puzzle&hl=pt_BR"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M22.018 13.298l-3.919 2.218-3.515-3.493 3.543-3.521 3.891 2.202a1.49 1.49 0 0 1 0 2.594zM1.337.924a1.486 1.486 0 0 0-.112.568v21.017c0 .217.045.419.124.6l11.155-11.087L1.337.924zm12.207 10.065l3.258-3.238L3.45.195a1.466 1.466 0 0 0-.946-.179l11.04 10.973zm0 2.067l-11 10.933c.298.036.612-.016.906-.183l13.324-7.54-3.23-3.21z"/></svg>Descargar →</a>
-        </div>
-        <div class="legal-links">
-          <a href="snap-puzzle-privacy.html">Política de Privacidad</a>
-          <a href="snap-puzzle-support.html">Soporte</a>
-        </div>
-      </section>
-
-      <section class="app-card">
-        <div class="app-card-header">
-          <div class="app-icon"><img src="icons/chord-book.png" alt="Ícono Chord Book" /></div>
-          <div>
-            <p class="app-name">Chord Book</p>
-            <p class="app-tagline">Cifras y acordes para músicos</p>
-          </div>
-        </div>
-        <p class="app-description">
-          Organiza y accede a tus cifras favoritas con soporte para acordes y transposición de tono.
-        </p>
-        <ul class="features">
-          <li>Cifras guardadas localmente</li>
-          <li>Transposición de tono</li>
-          <li>Modo claro/oscuro</li>
-        </ul>
-        <span class="badge badge-live">DISPONIBLE EN APP STORE Y PLAY STORE</span>
-        <br />
-        <div class="store-links">
-          <a class="store-link" href="https://apps.apple.com/br/app/chord-book/id6785742205"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12.152 6.896c-.948 0-2.415-1.078-3.96-1.04-2.04.027-3.91 1.183-4.961 3.014-2.117 3.675-.546 9.103 1.519 12.09 1.013 1.454 2.208 3.09 3.792 3.039 1.52-.065 2.09-.987 3.935-.987 1.831 0 2.35.987 3.96.948 1.637-.026 2.676-1.48 3.676-2.948 1.156-1.688 1.636-3.325 1.662-3.415-.039-.013-3.182-1.221-3.22-4.857-.026-3.04 2.48-4.494 2.597-4.559-1.429-2.09-3.623-2.324-4.39-2.376-2-.156-3.675 1.09-4.61 1.09zM15.53 3.83c.843-1.012 1.4-2.427 1.245-3.83-1.207.052-2.662.805-3.532 1.818-.78.896-1.454 2.338-1.273 3.714 1.338.104 2.715-.688 3.559-1.701"/></svg>Descargar →</a>
-          <a class="store-link store-link-android" href="https://play.google.com/store/apps/details?id=com.boliveira.chordbook.chord_book_app&hl=pt_BR"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M22.018 13.298l-3.919 2.218-3.515-3.493 3.543-3.521 3.891 2.202a1.49 1.49 0 0 1 0 2.594zM1.337.924a1.486 1.486 0 0 0-.112.568v21.017c0 .217.045.419.124.6l11.155-11.087L1.337.924zm12.207 10.065l3.258-3.238L3.45.195a1.466 1.466 0 0 0-.946-.179l11.04 10.973zm0 2.067l-11 10.933c.298.036.612-.016.906-.183l13.324-7.54-3.23-3.21z"/></svg>Descargar →</a>
-        </div>
-        <div class="legal-links">
-          <a href="chord-book-privacy.html">Política de Privacidad</a>
-          <a href="chord-book-support.html">Soporte</a>
-        </div>
-      </section>
-    </main>
-
-    <footer>
-      <p>© 2026 Bruno Augusto Abbade Oliveira</p>
-    </footer>
-  </div>
+  <footer>
+    <p>© 2026 Bruno Augusto Abbade Oliveira</p>
+  </footer>
 
   <script>
-    function setLang(lang) {
-      document.querySelectorAll('[data-lang-content]').forEach(function (el) {
-        el.classList.toggle('active', el.getAttribute('data-lang-content') === lang);
+    /*
+      Cada app tem "media". Enquanto não há vídeo pronto, type é "image"
+      (screenshot real) ou "placeholder" (ícone sobre gradiente, para apps
+      sem screenshots ainda). Para trocar por vídeo no futuro, basta usar
+      type: "video" com { phone: "caminho.mp4", tablet: "caminho.mp4" } —
+      o render() troca <img> por <video autoplay loop muted playsinline>.
+    */
+    const APPS = [
+      {
+        id: 'cifras-praise',
+        icon: 'icons/cifras-praise.png',
+        gradient: 'linear-gradient(160deg, #1c2570, #d99a2b)',
+        media: {
+          type: 'image',
+          phone: 'screenshots/cifras-praise/phone.jpg',
+          tablet: 'screenshots/cifras-praise/tablet.jpg',
+        },
+        badges: ['live'],
+        ios: 'https://apps.apple.com/br/app/renascer-praise-cifras/id6780117518',
+        android: 'https://play.google.com/store/apps/details?id=com.boliveira.cifraspraise&hl=pt_BR',
+        privacy: 'cifras-praise-privacy.html',
+        support: 'cifras-praise-support.html',
+        i18n: {
+          en: {
+            name: 'Renascer Praise Cifras',
+            tagline: 'Chords for praise and worship',
+            description: 'Music chord app with over 200 hymns and praises, designed for musicians and worship groups. Works offline after the first sync.',
+            features: [
+              'Over 200 chords with key and tabs',
+              'Real-time key transposition',
+              'Custom repertoire with reordering',
+              'Instant search by title',
+              'Light/dark mode and background colors',
+              'Auto-scroll with adjustable speed',
+              'Portuguese, English and Spanish',
+              'Works without internet after first use',
+            ],
+            liveBadge: 'AVAILABLE ON APP STORE AND PLAY STORE',
+            iosLabel: 'Download on App Store →',
+            androidLabel: 'Get on Google Play →',
+            privacyLabel: 'Privacy Policy',
+            supportLabel: 'Support',
+          },
+          pt: {
+            name: 'Renascer Praise Cifras',
+            tagline: 'Cifras para louvor e adoração',
+            description: 'App de cifras musicais com mais de 200 hinos e louvores, pensado para músicos e grupos de adoração. Funciona offline depois da primeira sincronização.',
+            features: [
+              'Mais de 200 cifras com tom e acordes',
+              'Transposição de tom em tempo real',
+              'Repertório personalizado com reordenação',
+              'Busca instantânea por título',
+              'Modo claro/escuro e cores de fundo',
+              'Auto-scroll com velocidade ajustável',
+              'Português, inglês e espanhol',
+              'Funciona sem internet após o primeiro uso',
+            ],
+            liveBadge: 'DISPONÍVEL NA APP STORE E PLAY STORE',
+            iosLabel: 'Baixar na App Store →',
+            androidLabel: 'Baixar no Google Play →',
+            privacyLabel: 'Política de Privacidade',
+            supportLabel: 'Suporte',
+          },
+          es: {
+            name: 'Renascer Praise Cifras',
+            tagline: 'Cifras de alabanza y adoración',
+            description: 'App de cifras musicales con más de 200 himnos y alabanzas, pensada para músicos y grupos de adoración. Funciona sin internet tras la primera sincronización.',
+            features: [
+              'Más de 200 cifras con tono y acordes',
+              'Transposición de tono en tiempo real',
+              'Repertorio personalizado con reordenación',
+              'Búsqueda instantánea por título',
+              'Modo claro/oscuro y colores de fondo',
+              'Auto-scroll con velocidad ajustable',
+              'Portugués, inglés y español',
+              'Funciona sin internet tras el primer uso',
+            ],
+            liveBadge: 'DISPONIBLE EN APP STORE Y PLAY STORE',
+            iosLabel: 'Descargar en App Store →',
+            androidLabel: 'Obtener en Google Play →',
+            privacyLabel: 'Política de Privacidad',
+            supportLabel: 'Soporte',
+          },
+        },
+      },
+      {
+        id: 'merge-rise',
+        icon: 'icons/merge-rise.png',
+        gradient: 'linear-gradient(160deg, #ffb648, #d9531e)',
+        media: { type: 'placeholder' },
+        badges: ['live'],
+        ios: 'https://apps.apple.com/br/app/merge-rise/id6781752965',
+        android: 'https://play.google.com/store/apps/details?id=com.brunoabbade.merge_rise_game&hl=pt_BR',
+        privacy: 'merge-rise-privacy.html',
+        support: 'merge-rise-support.html',
+        i18n: {
+          en: {
+            name: 'Merge Rise',
+            tagline: 'Merge puzzle with level progression',
+            description: 'Reinvented merge/2048 style puzzle game, with level objectives and match history to track your progress.',
+            features: ['Reinvented classic merge mechanic', 'Level progression with objectives', 'Match history', 'Sound effects and settings'],
+            liveBadge: 'AVAILABLE ON APP STORE AND PLAY STORE',
+            iosLabel: 'Download on App Store →',
+            androidLabel: 'Get on Google Play →',
+            privacyLabel: 'Privacy Policy',
+            supportLabel: 'Support',
+          },
+          pt: {
+            name: 'Merge Rise',
+            tagline: 'Puzzle de fusão com progressão por níveis',
+            description: 'Jogo de puzzle estilo merge/2048 reinventado, com objetivos por nível e histórico de partidas para acompanhar sua evolução.',
+            features: ['Mecânica de fusão clássica reinventada', 'Progressão por níveis com objetivos', 'Histórico de partidas', 'Efeitos sonoros e configurações'],
+            liveBadge: 'DISPONÍVEL NA APP STORE E PLAY STORE',
+            iosLabel: 'Baixar na App Store →',
+            androidLabel: 'Baixar no Google Play →',
+            privacyLabel: 'Política de Privacidade',
+            supportLabel: 'Suporte',
+          },
+          es: {
+            name: 'Merge Rise',
+            tagline: 'Puzzle de fusión con progresión por niveles',
+            description: 'Juego de puzzle estilo merge/2048 reinventado, con objetivos por nivel e historial de partidas para seguir tu evolución.',
+            features: ['Mecánica de fusión clásica reinventada', 'Progresión por niveles con objetivos', 'Historial de partidas', 'Efectos de sonido y configuración'],
+            liveBadge: 'DISPONIBLE EN APP STORE Y PLAY STORE',
+            iosLabel: 'Descargar en App Store →',
+            androidLabel: 'Obtener en Google Play →',
+            privacyLabel: 'Política de Privacidad',
+            supportLabel: 'Soporte',
+          },
+        },
+      },
+      {
+        id: 'snap-puzzle',
+        icon: 'icons/snap-puzzle.png',
+        gradient: 'linear-gradient(160deg, #6c7bff, #3a2a86)',
+        media: { type: 'placeholder' },
+        badges: ['live'],
+        ios: 'https://apps.apple.com/br/app/snap-puzzle/id6782507078',
+        android: 'https://play.google.com/store/apps/details?id=com.babbade.snap_puzzle&hl=pt_BR',
+        privacy: 'snap-puzzle-privacy.html',
+        support: 'snap-puzzle-support.html',
+        i18n: {
+          en: {
+            name: 'Snap Puzzle',
+            tagline: 'Jigsaw puzzle with your own photos',
+            description: 'Turn any photo from your gallery into a puzzle and assemble it at your own pace, with multiple difficulty levels.',
+            features: ['Use any photo as a puzzle', 'Multiple difficulty levels', 'Progress saved automatically'],
+            liveBadge: 'AVAILABLE ON APP STORE AND PLAY STORE',
+            iosLabel: 'Download on App Store →',
+            androidLabel: 'Get on Google Play →',
+            privacyLabel: 'Privacy Policy',
+            supportLabel: 'Support',
+          },
+          pt: {
+            name: 'Snap Puzzle',
+            tagline: 'Quebra-cabeça com suas próprias fotos',
+            description: 'Transforme qualquer foto da sua galeria em um quebra-cabeça e monte no seu próprio ritmo, com vários níveis de dificuldade.',
+            features: ['Use qualquer foto como puzzle', 'Vários níveis de dificuldade', 'Progresso salvo automaticamente'],
+            liveBadge: 'DISPONÍVEL NA APP STORE E PLAY STORE',
+            iosLabel: 'Baixar na App Store →',
+            androidLabel: 'Baixar no Google Play →',
+            privacyLabel: 'Política de Privacidade',
+            supportLabel: 'Suporte',
+          },
+          es: {
+            name: 'Snap Puzzle',
+            tagline: 'Rompecabezas con tus propias fotos',
+            description: 'Convierte cualquier foto de tu galería en un rompecabezas y arma el puzzle a tu propio ritmo, con varios niveles de dificultad.',
+            features: ['Usa cualquier foto como puzzle', 'Varios niveles de dificultad', 'Progreso guardado automáticamente'],
+            liveBadge: 'DISPONIBLE EN APP STORE Y PLAY STORE',
+            iosLabel: 'Descargar en App Store →',
+            androidLabel: 'Obtener en Google Play →',
+            privacyLabel: 'Política de Privacidad',
+            supportLabel: 'Soporte',
+          },
+        },
+      },
+      {
+        id: 'chord-book',
+        icon: 'icons/chord-book.png',
+        gradient: 'linear-gradient(160deg, #3a332a, #8a7048)',
+        media: { type: 'placeholder' },
+        badges: ['live-android', 'dev-ios'],
+        android: 'https://play.google.com/store/apps/details?id=com.boliveira.chordbook.chord_book_app&hl=pt_BR',
+        privacy: 'chord-book-privacy.html',
+        support: 'chord-book-support.html',
+        i18n: {
+          en: {
+            name: 'Chord Book',
+            tagline: 'Chords and tabs for musicians',
+            description: 'Organize and access your favorite chord charts with chord support and key transposition.',
+            features: ['Locally saved chords', 'Key transposition', 'Light/dark mode'],
+            liveAndroidBadge: 'AVAILABLE ON GOOGLE PLAY',
+            devIosBadge: 'IOS IN DEVELOPMENT',
+            androidLabel: 'Get on Google Play →',
+            privacyLabel: 'Privacy Policy',
+            supportLabel: 'Support',
+          },
+          pt: {
+            name: 'Chord Book',
+            tagline: 'Cifras e acordes para músicos',
+            description: 'Organize e acesse suas cifras favoritas com suporte a acordes e transposição de tom.',
+            features: ['Cifras salvas localmente', 'Transposição de tom', 'Modo claro/escuro'],
+            liveAndroidBadge: 'DISPONÍVEL NO GOOGLE PLAY',
+            devIosBadge: 'IOS EM DESENVOLVIMENTO',
+            androidLabel: 'Baixar no Google Play →',
+            privacyLabel: 'Política de Privacidade',
+            supportLabel: 'Suporte',
+          },
+          es: {
+            name: 'Chord Book',
+            tagline: 'Cifras y acordes para músicos',
+            description: 'Organiza y accede a tus cifras favoritas con soporte para acordes y transposición de tono.',
+            features: ['Cifras guardadas localmente', 'Transposición de tono', 'Modo claro/oscuro'],
+            liveAndroidBadge: 'DISPONIBLE EN GOOGLE PLAY',
+            devIosBadge: 'IOS EN DESARROLLO',
+            androidLabel: 'Obtener en Google Play →',
+            privacyLabel: 'Política de Privacidad',
+            supportLabel: 'Soporte',
+          },
+        },
+      },
+    ];
+
+    const SITE_I18N = {
+      en: {
+        eyebrow: 'Independent developer',
+        heroTitle: 'Apps & games, crafted end to end',
+        heroSubtitle: 'A small catalog of iOS and Android apps — designed, built and maintained by Bruno Abbade.',
+      },
+      pt: {
+        eyebrow: 'Desenvolvedor independente',
+        heroTitle: 'Apps e jogos, feitos do início ao fim',
+        heroSubtitle: 'Um pequeno catálogo de apps para iOS e Android — projetados, desenvolvidos e mantidos por Bruno Abbade.',
+      },
+      es: {
+        eyebrow: 'Desarrollador independiente',
+        heroTitle: 'Apps y juegos, hechos de principio a fin',
+        heroSubtitle: 'Un pequeño catálogo de apps para iOS y Android — diseñados, desarrollados y mantenidos por Bruno Abbade.',
+      },
+    };
+
+    function renderMedia(app) {
+      const wrap = document.createElement('div');
+      wrap.className = 'showcase-devices';
+
+      const phone = document.createElement('div');
+      phone.className = 'device-frame phone';
+      const phoneScreen = document.createElement('div');
+      phoneScreen.className = 'screen';
+
+      if (app.media.type === 'placeholder') {
+        phoneScreen.classList.add('placeholder');
+        phoneScreen.style.setProperty('--placeholder-gradient', app.gradient);
+        const icon = document.createElement('img');
+        icon.src = app.icon;
+        icon.alt = app.i18n[currentLang].name;
+        phoneScreen.appendChild(icon);
+      } else if (app.media.type === 'video') {
+        const video = document.createElement('video');
+        video.src = app.media.phone;
+        video.autoplay = true; video.loop = true; video.muted = true; video.playsInline = true;
+        phoneScreen.appendChild(video);
+      } else {
+        const img = document.createElement('img');
+        img.src = app.media.phone;
+        img.alt = app.i18n[currentLang].name;
+        img.loading = 'lazy';
+        phoneScreen.appendChild(img);
+      }
+      phone.appendChild(phoneScreen);
+      wrap.appendChild(phone);
+
+      if (app.media.tablet) {
+        const tablet = document.createElement('div');
+        tablet.className = 'device-frame tablet';
+        const tabletScreen = document.createElement('div');
+        tabletScreen.className = 'screen';
+        if (app.media.type === 'video') {
+          const video = document.createElement('video');
+          video.src = app.media.tablet;
+          video.autoplay = true; video.loop = true; video.muted = true; video.playsInline = true;
+          tabletScreen.appendChild(video);
+        } else {
+          const img = document.createElement('img');
+          img.src = app.media.tablet;
+          img.alt = app.i18n[currentLang].name;
+          img.loading = 'lazy';
+          tabletScreen.appendChild(img);
+        }
+        tablet.appendChild(tabletScreen);
+        wrap.appendChild(tablet);
+      }
+
+      return wrap;
+    }
+
+    function renderBadges(app, t) {
+      const row = document.createElement('div');
+      row.className = 'badge-row';
+      app.badges.forEach(function (b) {
+        const span = document.createElement('span');
+        if (b === 'live') { span.className = 'badge badge-live'; span.textContent = t.liveBadge; }
+        if (b === 'live-android') { span.className = 'badge badge-live'; span.textContent = t.liveAndroidBadge; }
+        if (b === 'dev-ios') { span.className = 'badge badge-dev'; span.textContent = t.devIosBadge; }
+        row.appendChild(span);
       });
+      return row;
+    }
+
+    function renderApp(app, index) {
+      const t = app.i18n[currentLang];
+
+      const section = document.createElement('section');
+      section.className = 'showcase' + (index % 2 === 1 ? ' reverse' : '');
+
+      section.appendChild(renderMedia(app));
+
+      const content = document.createElement('div');
+      content.className = 'showcase-content';
+
+      const header = document.createElement('div');
+      header.className = 'app-header';
+      const iconWrap = document.createElement('div');
+      iconWrap.className = 'app-icon';
+      const iconImg = document.createElement('img');
+      iconImg.src = app.icon;
+      iconImg.alt = t.name;
+      iconWrap.appendChild(iconImg);
+      const nameWrap = document.createElement('div');
+      const name = document.createElement('p');
+      name.className = 'app-name';
+      name.textContent = t.name;
+      const tagline = document.createElement('p');
+      tagline.className = 'app-tagline';
+      tagline.textContent = t.tagline;
+      nameWrap.append(name, tagline);
+      header.append(iconWrap, nameWrap);
+
+      const desc = document.createElement('p');
+      desc.className = 'app-description';
+      desc.textContent = t.description;
+
+      const features = document.createElement('ul');
+      features.className = 'features';
+      t.features.forEach(function (f) {
+        const li = document.createElement('li');
+        li.textContent = f;
+        features.appendChild(li);
+      });
+
+      const badges = renderBadges(app, t);
+
+      const storeLinks = document.createElement('div');
+      storeLinks.className = 'store-links';
+      if (app.ios) {
+        const a = document.createElement('a');
+        a.className = 'store-link';
+        a.href = app.ios;
+        a.textContent = t.iosLabel;
+        storeLinks.appendChild(a);
+      }
+      if (app.android) {
+        const a = document.createElement('a');
+        a.className = 'store-link store-link-android';
+        a.href = app.android;
+        a.textContent = t.androidLabel;
+        storeLinks.appendChild(a);
+      }
+
+      const legal = document.createElement('div');
+      legal.className = 'legal-links';
+      const priv = document.createElement('a');
+      priv.href = app.privacy;
+      priv.textContent = t.privacyLabel;
+      const sup = document.createElement('a');
+      sup.href = app.support;
+      sup.textContent = t.supportLabel;
+      legal.append(priv, sup);
+
+      content.append(header, desc, features, badges, storeLinks, legal);
+      section.appendChild(content);
+      return section;
+    }
+
+    function renderHeroApps() {
+      const row = document.getElementById('hero-apps');
+      row.innerHTML = '';
+      APPS.forEach(function (app) {
+        const a = document.createElement('a');
+        a.href = '#' + app.id;
+        const img = document.createElement('img');
+        img.src = app.icon;
+        img.alt = app.i18n[currentLang].name;
+        a.appendChild(img);
+        row.appendChild(a);
+      });
+    }
+
+    var currentLang = 'pt';
+
+    function render() {
+      const t = SITE_I18N[currentLang];
+      document.querySelectorAll('[data-t]').forEach(function (el) {
+        el.textContent = t[el.getAttribute('data-t')];
+      });
+      renderHeroApps();
+      const list = document.getElementById('app-list');
+      list.innerHTML = '';
+      APPS.forEach(function (app, i) {
+        const section = renderApp(app, i);
+        section.id = app.id;
+        list.appendChild(section);
+      });
+    }
+
+    function setLang(lang) {
+      currentLang = lang;
+      document.documentElement.lang = lang;
       document.querySelectorAll('[data-lang-btn]').forEach(function (btn) {
         btn.classList.toggle('active', btn.getAttribute('data-lang-btn') === lang);
       });
       localStorage.setItem('lang', lang);
+      render();
     }
+
     document.querySelectorAll('[data-lang-btn]').forEach(function (btn) {
       btn.addEventListener('click', function () { setLang(btn.getAttribute('data-lang-btn')); });
     });
+
     setLang(localStorage.getItem('lang') || 'pt');
   </script>
 </body>
